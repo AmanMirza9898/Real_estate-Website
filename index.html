@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+
+        <!-- Navbar -->
+  <nav class="bg-white py-3 fixed top-0 w-full">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      
+      <!-- Logo and Search -->
+      <div class="flex items-center space-x-4">
+        <a href="#" class="flex items-center space-x-1">
+          <img src="logo.png" alt="Logo" class="">
+          
+        </a>
+
+        <!-- Search Bar -->
+        <div class="hidden lg:flex items-center bg-gray-100 rounded-full px-4 py-2 ml-4">
+          <i class="fas fa-search text-gray-400"></i>
+          <input type="text" placeholder="Search..." class="bg-transparent focus:outline-none ml-2 w-40">
+        </div>
+      </div>
+
+      <!-- Menu Links and Action Buttons -->
+      <div class="hidden lg:flex items-center space-x-6">
+        <a href="http://127.0.0.1:5500/main/home.html" class="text-blue-600 font-semibold">Home</a>
+        
+        <!-- Dropdown Links -->
+        <div class="relative group">
+          <a href="http://127.0.0.1:5500/main/listing.html" class="hover:text-blue-600">Listings <i class="fas fa-chevron-down text-xs"></i></a>
+          <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 py-2 w-40">
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Buy</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Rent</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Sell</a>
+          </div>
+        </div>
+
+        <div class="relative group">
+          <a href="#" class="hover:text-blue-600">Agents <i class="fas fa-chevron-down text-xs"></i></a>
+          <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 py-2 w-40">
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Agent List</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Agent Profile</a>
+          </div>
+        </div>
+
+        <a href="#" class="hover:text-blue-600">News</a>
+
+        <div class="relative">
+          <button id="dropdownButton" class="hover:text-blue-600 flex items-center">
+              Pages <i class="fas fa-chevron-down text-xs ml-1"></i>
+          </button>
+          <div id="dropdownMenu" class="absolute hidden bg-white shadow-md rounded-md mt-2 py-2 w-40 z-10">
+              <a href="http://127.0.0.1:5500/main/About.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">About Us</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Contact</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">FAQ</a>
+              <a href="http://127.0.0.1:5500/main/index_2.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Blog</a>
+              <a href="http://127.0.0.1:5500/main/index.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">User Dashboard</a>
+          </div>
+      </div>
+      
+      <script>
+          const dropdownButton = document.getElementById('dropdownButton');
+          const dropdownMenu = document.getElementById('dropdownMenu');
+      
+          dropdownButton.addEventListener('click', () => {
+              // Toggle the visibility of the dropdown menu
+              dropdownMenu.classList.toggle('hidden');
+          });
+      
+          // Optional: Close the dropdown when clicking outside of it
+          document.addEventListener('click', (event) => {
+              if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                  dropdownMenu.classList.add('hidden');
+              }
+          });
+      </script>
+      
+
+      <i class="fa-solid fa-user"></i> <a href="http://127.0.0.1:5500/main/login.html">Sign IN</a>
+
+        <!-- Notification Bell with Badge -->
+        <a href="#" class="relative">
+          <i class="fas fa-bell text-gray-600"></i>
+          <span class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">5</span>
+        </a>
+
+        <!-- Language Selector -->
+        <a href="#" class="hover:text-blue-600">
+          <i class="fas fa-globe text-gray-600"></i> <i class="fas fa-chevron-down text-xs"></i>
+        </a>
+
+        <!-- Add Listing Button -->
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md"><a href="http://127.0.0.1:5500/main/listing.html">+ Add Listing</a></button>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <div class="lg:hidden flex items-center">
+        <button id="menu-toggle" class="focus:outline-none">
+          <i class="fas fa-bars text-gray-600 text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden px-4 pt-4 pb-6 hidden">
+      <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 mb-4">
+        <i class="fas fa-search text-gray-400"></i>
+        <input type="text" placeholder="Search..." class="bg-transparent focus:outline-none ml-2 w-full">
+      </div>
+      <a href="http://127.0.0.1:5500/main/home.html" class="block py-2 text-blue-600 font-semibold">Home</a>
+      <a href="http://127.0.0.1:5500/main/listing.html" class="block py-2 hover:text-blue-600">Listings</a>
+      <a href="#" class="block py-2 hover:text-blue-600">Agents</a>
+      <a href="#" class="block py-2 hover:text-blue-600">News</a>
+      <a href="http://127.0.0.1:5500/main/index_2.html"class="block py-2 hover:text-blue-600">Pages</a>
+      <i class="fa-solid fa-user"></i> <a href="http://127.0.0.1:5500/main/login.html">Sign IN</a>
+      <div class="flex items-center space-x-4 mt-4">
+        <a href="#"><i class="fas fa-bell text-gray-600"></i></a>
+        <a href="#"><i class="fas fa-globe text-gray-600"></i></a>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-full w-full"><a href="http://127.0.0.1:5500/main/listing.html">+ Add Listing</a></button>
+      </div>
+    </div>
+  </nav>
+  
+
+  <script>
+    // Toggle mobile menu visibility
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+  </script>
+
+
+
+    <main class="sm:flex sm:mt-[70px]">
+
+
+         <div class="hidden sm:block fixed    left ml-[0px] w-[300px] h-full border shadow-lg  bg-white"> <!--Start left div -->
+            <div class="">
+                <h1 class="ml-[50px] py-[20px] text-gray-500">MAIN</h1>
+            </div>
+            <ul>
+                <div class="border-t-2 pl-[50px]">
+                    <li> <i class="text-blue-400 py-[20px] fa-solid fa-chart-line"></i> Dashboard</li>
+                </div>
+                <div  class="border-t-2  pl-[50px]">
+                    <li> <i class="text-blue-400 py-[20px] fa-solid fa-user"></i> Edit profile</li>
+                </div>
+                <div  class="border-t-2  pl-[50px]">
+                    <li> <i class="text-blue-400 py-[20px] fa-regular fa-message"></i> Messages <span class="bg-blue-400 px-[5px] rounded-sm text-white">3</span></li>
+                </div>
+                <div  class="border-t-2  pl-[50px]">
+                    <li> <i class="text-blue-400 py-[20px] fa-solid fa-people-group"></i> Agent List</li>
+                </div>
+                <div class="border-t-2 border-b-2  pl-[50px]"> 
+                    <li> <i class="text-blue-400 py-[20px] fa-solid fa-plus"></i> Submenue</li>
+                </div>
+            </ul>
+
+
+
+            <div class="">
+                <h1 class=" ml-[50px] py-[20px] text-gray-500">LISTINGS</h1>
+            </div>
+            <ul>
+                <div class="border-t-2 pl-[50px]">
+                    <li> <i class="text-blue-400 py-[20px] fa-solid fa-list"></i> My Listings</li>
+                </div>
+                <div  class="border-t-2  pl-[50px]">
+                    <li> <i class="text-blue-400 py-[20px] fa-solid fa-book"></i> Bookings <span class="bg-blue-400 px-[5px] rounded-sm text-white">2</span></li>
+                </div>
+                <div  class="border-t-2  pl-[50px]">
+                    <li> <i class="text-blue-400 py-[20px] fa-solid fa-message"></i> Reviews</li>
+                </div>
+                <div  class="border-t-2  pl-[50px]">
+                    <li> <i class="text-blue-400 py-[20px] fa-solid fa-plus"></i> Add New</li>
+                </div>
+                
+            </ul>
+         </div> <!--End left div -->
+
+
+         <!-- Start right Div -->
+
+         <div class="right sm:pl-[300px] w-full bg-blue-50 mt-[100px] sm:mt-[0px]">
+
+            <div class="hidden sm:flex items-center justify-center pt-[50px] pb-[10px] border-b-2">
+                <div>
+                    <h1 class="font-bold text-[20px] text-gray-600">DASHBOARD</h1>
+                </div>
+                
+                <div class="ml-[500px]">
+                    <h1 class="font-bold text-[13px]">YOUR TARIFF PLAN :  <span class="text-blue-400">EXTENDED</span> <i class="fa-solid fa-arrow-down"></i> </h1>
+                </div>
+                <div class="flex justify-center items-center ml-[0px] border bg-white shadow-lg py-[10px] px-[10px] rounded-[5px]">
+                    <div>
+                        <img class="w-[40px] rounded-[50%]" src="img-logo.jpg" alt="">
+                    </div>
+                    <div>
+                        <h1 class="ml-[10px] font-bold text-[12px]">
+                            Welcome, <span class="text-blue-400 text-[12px]">Alica  Noory </span> <span class="ml-[20px] pr-[20px] text-blue-400"><i class="fa-solid fa-power-off"></i></span>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="">
+                <img src="Screenshot 2024-10-24 084025.png" alt="" class="w-[1080px] ml-[0px] mt-[50px]">
+            </div>
+
+
+            <div class="flex">
+                <div class="p-4 sub-left">
+                    <div class="mt-[20px] bg-gradient-to-r from-sky-400 to-blue-500 py-[20px] px-[10px] rounded-md ml-[0px] w-[95%] pr-[00px] text-[15px]">
+                        <h1 class="text-white">Your listing <span class="font-bold">Family house in Brooklyn</span> has been approved! <span class="ml-[300px]"><i class="fa-solid fa-x"></i></span> </h1>
+                    </div>
+
+                    <div>
+                        <h1 class="ml-[0px] my-[20px] font-bold text-gray-500">Your Statistic</h1>
+                        <div>
+                            <img class="ml-[0px] w-[770px]" src="Screenshot 2024-10-24 091915.png" alt="">
+                        </div>
+                    </div>
+                    <h1 class="ml-[0px] my-[20px] font-bold text-gray-500">Last Activites</h1>
+
+                    <div class="space-y-2">
+
+                        <div class="border shadow-lg flex justify-between hover:bg-gradient-to-r from-sky-400 to-blue-500 bg-white rounded-md ml-[0px] py-[20px]">
+                        
+
+                            <div class="flex items-center space-x-10">
+                                <i class="bg-blue-600 text-white rounded-md ml-[10px] py-[10px] px-[10px] fa-solid fa-check"></i>
+    
+                                <div>
+                                    Your listing <span class="text-blue-400">Urban Appartmes</span> has been approved!
+                                </div>
+                            </div>
+    
+                            
+    
+                            <div class="flex items-center space-x-10">
+                                <i class=" fa-solid fa-calendar-days"></i> <span> 28 may 2020</span>
+    
+                                <div>
+                                    <i class="p-[10px] bg-blue-600 mr-[20px] rounded-[50%] text-white fa-solid fa-x"></i>
+                                </div>
+                            </div>
+    
+                          
+                        </div>
+    
+                        <div class="border shadow-lg flex justify-between hover:bg-gradient-to-r from-sky-400 to-blue-500 bg-white rounded-md ml-[0px] py-[20px]">
+                            
+    
+                            <div class="flex items-center space-x-10">
+                                <i class="bg-blue-600 text-white rounded-md ml-[10px] py-[10px] px-[10px] fa-solid fa-message"></i>
+    
+                                <div>
+                                    Someone left a review on <span class="text-blue-400">
+                                    Park Central </span> listing!
+                                </div>
+                            </div>
+    
+                            
+    
+                            <div class="flex items-center space-x-10">
+                                <i class=" fa-solid fa-calendar-days"></i> <span> 28 may 2020</span>
+    
+                                <div>
+                                    <i class="p-[10px] bg-blue-600 mr-[20px] rounded-[50%] text-white fa-solid fa-x"></i>
+                                </div>
+                            </div>
+    
+                          
+                        </div>
+    
+                        <div class="border shadow-lg flex justify-between hover:bg-gradient-to-r from-sky-400 to-blue-500 bg-white rounded-md ml-[0px] py-[20px]">
+                            
+    
+                            <div class="flex items-center space-x-10">
+                                <i class="bg-blue-600 text-white rounded-md ml-[10px] py-[10px] px-[10px] fa-solid fa-heart"></i>
+    
+                                <div>
+                                    <span class="text-blue-400">
+                                        Fider Mamby </span> bookmarked your <span class="text-blue-400">Holiday Home</span> listing!
+                                </div>
+                            </div>
+    
+                            
+    
+                            <div class="flex items-center space-x-10">
+                                <i class=" fa-solid fa-calendar-days"></i> <span> 28 may 2020</span>
+    
+                                <div>
+                                    <i class="p-[10px] bg-blue-600 mr-[20px] rounded-[50%] text-white fa-solid fa-x"></i>
+                                </div>
+                            </div>
+    
+                          
+                        </div>
+
+                    </div>
+                  
+                </div>
+
+
+
+
+
+
+
+
+
+                <div class="hidden sm:block sub-right ml-[50px]">
+                    <div>
+                        <img src="Screenshot 2024-10-24 084848.png" alt="" class="w-[300px] ">
+                    </div>
+                    <div class="absolute mt-[50px]">
+                        <img class="w-[300px] h-[300px]" src="Delivery URL - BetterUp - importance of teamwork [ARTICLE]-3.webp" alt="">
+                    </div>
+                    
+                </div>
+            </div>
+            
+
+         </div>
+    </main>
+
+
+</body>
+</html>

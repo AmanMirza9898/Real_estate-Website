@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Dashboard Layout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        .toggle-dot {
+            transition: transform 0.2s ease-in-out;
+        }
+    </style>
+    <script>
+        // Function to add a new room entry dynamically
+        function addNewRoom() {
+            const roomContainer = document.getElementById('room-container');
+
+            const newRoom = document.createElement('div');
+            newRoom.className = "bg-white p-4 rounded-lg shadow-md mt-4";
+            newRoom.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-700">Room Title:</h3>
+                    <button onclick="this.parentElement.parentElement.remove()" class="text-red-500 hover:text-red-700 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <!-- Room Title -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Room Title:</label>
+                        <div class="flex items-center px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                            <span class="material-icons text-blue-500">layers</span>
+                            <input type="text" placeholder="Standard Family Room" class="flex-1 bg-transparent outline-none pl-2 text-gray-600">
+                        </div>
+                    </div>
+
+                    <!-- Additional Room -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Additional Room:</label>
+                        <div class="flex items-center px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                            <span class="material-icons text-blue-500">group_work</span>
+                            <input type="text" placeholder="Example: Sauna" class="flex-1 bg-transparent outline-none pl-2 text-gray-600">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Room Details -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Room Details:</label>
+                    <textarea placeholder="Details" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-600"></textarea>
+                </div>
+
+                <!-- Room Images Upload -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Room Images:</label>
+                    <div class="border-2 border-dashed border-blue-300 rounded-lg h-40 flex flex-col items-center justify-center text-gray-500 cursor-pointer hover:bg-gray-50">
+                        <span class="material-icons text-blue-500 mb-2">cloud_upload</span>
+                        <p>Click here or drop files to upload</p>
+                    </div>
+                </div>
+
+                <!-- Amenities Checkboxes -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Amenities:</label>
+                    <div class="flex items-center space-x-4 text-gray-700">
+                        <label><input type="checkbox" class="mr-2">Air conditioner</label>
+                        <label><input type="checkbox" class="mr-2">Tv Inside</label>
+                        <label><input type="checkbox" class="mr-2">Ceramic bath</label>
+                        <label><input type="checkbox" class="mr-2">Microwave</label>
+                    </div>
+                </div>
+            `;
+            roomContainer.appendChild(newRoom);
+        }
+
+        // Toggle function for the ON/OFF switch button
+        function toggleSwitch(element) {
+            element.classList.toggle('bg-blue-400');
+            element.classList.toggle('bg-gray-300');
+            const dot = element.querySelector('.toggle-dot');
+            dot.classList.toggle('translate-x-6');
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+
+   <!-- Navbar -->
+   <nav class="bg-white shadow-md py-3 w-full fixed top-0 z-[1]">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      
+      <!-- Logo and Search -->
+      <div class="flex items-center space-x-4">
+        <a href="#" class="flex items-center space-x-1">
+          <img src="logo.png" alt="Logo" class="">
+          
+        </a>
+
+        <!-- Search Bar -->
+        <div class="hidden lg:flex items-center bg-gray-100 rounded-full px-4 py-2 ml-4">
+          <i class="fas fa-search text-gray-400"></i>
+          <input type="text" placeholder="Search..." class="bg-transparent focus:outline-none ml-2 w-40">
+        </div>
+      </div>
+
+      <!-- Menu Links and Action Buttons -->
+      <div class="hidden lg:flex items-center space-x-6">
+        <a href="http://127.0.0.1:5500/main/home.html" class="text-blue-600 font-semibold">Home</a>
+        
+        <!-- Dropdown Links -->
+        <div class="relative group">
+          <a href="http://127.0.0.1:5500/main/listing.html" class="hover:text-blue-600">Listings <i class="fas fa-chevron-down text-xs"></i></a>
+          <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 py-2 w-40">
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Buy</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Rent</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Sell</a>
+          </div>
+        </div>
+
+        <div class="relative group">
+          <a href="#" class="hover:text-blue-600">Agents <i class="fas fa-chevron-down text-xs"></i></a>
+          <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 py-2 w-40">
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Agent List</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Agent Profile</a>
+          </div>
+        </div>
+
+        <a href="#" class="hover:text-blue-600">News</a>
+
+        <div class="relative">
+          <button id="dropdownButton" class="hover:text-blue-600 flex items-center">
+              Pages <i class="fas fa-chevron-down text-xs ml-1"></i>
+          </button>
+          <div id="dropdownMenu" class="absolute hidden bg-white shadow-md rounded-md mt-2 py-2 w-40 z-10">
+              <a href="http://127.0.0.1:5500/main/About.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">About Us</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Contact</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">FAQ</a>
+              <a href="http://127.0.0.1:5500/main/index_2.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Blog</a>
+              <a href="http://127.0.0.1:5500/main/index.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">User Dashboard</a>
+          </div>
+      </div>
+      
+      <script>
+          const dropdownButton = document.getElementById('dropdownButton');
+          const dropdownMenu = document.getElementById('dropdownMenu');
+      
+          dropdownButton.addEventListener('click', () => {
+              // Toggle the visibility of the dropdown menu
+              dropdownMenu.classList.toggle('hidden');
+          });
+      
+          // Optional: Close the dropdown when clicking outside of it
+          document.addEventListener('click', (event) => {
+              if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                  dropdownMenu.classList.add('hidden');
+              }
+          });
+      </script>
+      
+
+        <a href="http://127.0.0.1:5500/main/login.html" class="flex items-center space-x-1">
+          <i class="fas fa-user text-gray-600"></i>
+          <span class="hover:text-blue-600">Sign In</span>
+        </a>
+
+        <!-- Notification Bell with Badge -->
+        <a href="#" class="relative">
+          <i class="fas fa-bell text-gray-600"></i>
+          <span class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">5</span>
+        </a>
+
+        <!-- Language Selector -->
+        <a href="#" class="hover:text-blue-600">
+          <i class="fas fa-globe text-gray-600"></i> <i class="fas fa-chevron-down text-xs"></i>
+        </a>
+
+        <!-- Add Listing Button -->
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md"><a href="http://127.0.0.1:5500/main/listing.html">+ Add Listing</a></button>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <div class="lg:hidden flex items-center">
+        <button id="menu-toggle" class="focus:outline-none">
+          <i class="fas fa-bars text-gray-600 text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden px-4 pt-4 pb-6 hidden">
+      <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 mb-4">
+        <i class="fas fa-search text-gray-400"></i>
+        <input type="text" placeholder="Search..." class="bg-transparent focus:outline-none ml-2 w-full">
+      </div>
+      <a href="http://127.0.0.1:5500/main/home.html" class="block py-2 text-blue-600 font-semibold">Home</a>
+      <a href="http://127.0.0.1:5500/main/listing.html" class="block py-2 hover:text-blue-600">Listings</a>
+      <a href="#" class="block py-2 hover:text-blue-600">Agents</a>
+      <a href="#" class="block py-2 hover:text-blue-600">News</a>
+      <a href="http://127.0.0.1:5500/main/index_2.html"class="block py-2 hover:text-blue-600">Pages</a>
+      <i class="fa-solid fa-user"></i> <a href="http://127.0.0.1:5500/main/login.html">Sign IN</a>
+      <div class="flex items-center space-x-4 mt-4">
+        <a href="#"><i class="fas fa-bell text-gray-600"></i></a>
+        <a href="#"><i class="fas fa-globe text-gray-600"></i></a>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-full w-full"><a href="http://127.0.0.1:5500/main/listing.html">+ Add Listing</a></button>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    // Toggle mobile menu visibility
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+  </script>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden  flex-col space-y-4 p-4 bg-white shadow-md">
+            <a href="#" class="text-gray-700 hover:text-blue-600">Home</a>
+            <a href="#" class="text-gray-700 hover:text-blue-600">Listings</a>
+            <a href="#" class="text-gray-700 hover:text-blue-600">Agents</a>
+            <a href="#" class="text-gray-700 hover:text-blue-600">News</a>
+            <a href="#" class="text-gray-700 hover:text-blue-600">Pages</a>
+            <div class="flex items-center justify-between space-x-4 pt-4">
+                <i class="fas fa-bell text-gray-600 hover:text-blue-600"></i>
+                <i class="fas fa-globe text-gray-600 hover:text-blue-600"></i>
+                <img src="profile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
+            </div>
+            <button class="bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 w-full mt-4 flex items-center justify-center">
+                <i class="fas fa-plus mr-2"></i> Add Listing
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar and Main Content Container -->
+    <div class=" pt-20 max-w-7xl mx-auto">
+
+        <!-- Sidebar (fixed for larger screens and collapsible for smaller screens) -->
+        <aside class="w-64 h-screen bg-white shadow-md fixed top-16 left-0 hidden lg:flex flex-col">
+            <div class="p-6 overflow-y-auto h-full">
+                <div class="text-gray-400 text-xs font-semibold mb-4">MAIN</div>
+                <ul class="space-y-8">
+                    <li class="flex items-center justify-between text-gray-700 hover:text-blue-600">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-chart-line text-blue-600"></i>
+                            <span>Dashboard</span>
+                        </div>
+                    </li>
+                    <li class="flex items-center justify-between text-gray-700 hover:text-blue-600">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-user text-blue-600"></i>
+                            <span>Edit profile</span>
+                        </div>
+                    </li>
+                    <li class="flex items-center justify-between text-gray-700 hover:text-blue-600">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-blue-600"></i>
+                            <span>Messages</span>
+                        </div>
+                        <span class="bg-blue-600 text-white text-xs font-bold rounded-full px-2">3</span>
+                    </li>
+                    <li class="flex items-center justify-between text-gray-700 hover:text-blue-600">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-users text-blue-600"></i>
+                            <span>Agents List</span>
+                        </div>
+                    </li>
+                    <li class="flex items-center justify-between text-gray-700 hover:text-blue-600">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-plus text-blue-600"></i>
+                            <span>Submenu</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Listings Section -->
+                <div class="text-gray-400 text-xs font-semibold mt-6 mb-4">LISTINGS</div>
+                <ul class="space-y-8">
+                    <li class="flex items-center justify-between text-gray-700 hover:text-blue-600">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-table text-blue-600"></i>
+                            <span>My listings</span>
+                        </div>
+                    </li>
+                    <li class="flex items-center justify-between text-gray-700 hover:text-blue-600">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-calendar-check text-blue-600"></i>
+                            <span>Bookings</span>
+                        </div>
+                        <span class="bg-blue-600 text-white text-xs font-bold rounded-full px-2">3</span>
+                    </li>
+                    <li class="flex items-center justify-between text-gray-700 hover:text-blue-600">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-comment-alt text-blue-600"></i>
+                            <span>Reviews</span>
+                        </div>
+                        <span class="bg-blue-600 text-white text-xs font-bold rounded-full px-2">2</span>
+                    </li>
+                    <li class="flex items-center justify-between text-gray-700 hover:text-blue-600">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-file-alt text-blue-600"></i>
+                            <span>Add New</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-grow p-6 lg:ml-44 bg-gray-100">
+            <!-- Header Section -->
+            <div class=" flex flex-col md:flex-row justify-between items-center mb-6">
+                <h1 class="text-2xl font-semibold text-blue-900">ADD LISTING</h1>
+                <div class="flex flex-col md:flex-row justify-between items-center space-x-8 mt-4 md:mt-0">
+                    <span class="text-gray-500">YOUR TARIFF PLAN :</span>
+                    <span class="text-blue-600 font-semibold">EXTENDED</span>
+                    <div class="flex items-center space-x-2 bg-white p-2 rounded-lg shadow-md">
+                        <img src="depositphotos_73762843-stock-photo-girl-smiling-with-perfect-smile.jpg" alt="Profile" class="w-8 h-8 rounded-full">
+                        <span class="text-gray-700">Welcome, <span class="font-semibold text-blue-600">Alica Noory</span></span>
+                        <i class="fas fa-power-off text-gray-500"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs Section -->
+            <div class="hidden sm:flex flex-col  sm:flex-row w-full sm:w-[1055px] sm:space-x-16 space-x-4 font-bold bg-white p-4 rounded-lg shadow-md mb-6 sm:fixed z-[1]">
+                <a href="#" class="text-blue-600 font-semibold">Info</a>
+                <a href="#" class="text-gray-500 hover:text-blue-600">Location</a>
+                <a href="#" class="text-gray-500 hover:text-blue-600">Media</a>
+                <a href="#" class="text-gray-500 hover:text-blue-600">Details</a>
+                <a href="#" class="text-gray-500 hover:text-blue-600">Rooms</a>
+                <a href="#" class="text-gray-500 hover:text-blue-600">Plans</a>
+                <a href="#" class="text-gray-500 hover:text-blue-600">Widgets</a>
+                <i class="fas fa-ellipsis-h text-gray-500 ml-auto"></i>
+            </div>
+
+            <!-- Form Section -->
+            <div class="bg-white p-6 rounded-lg shadow-md mt-[100px]">
+                <h2 class="text-blue-600 font-semibold mb-4 flex items-center">
+                    <i class="fas fa-info-circle mr-2"></i> Basic Information
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div>
+                        <label class="text-gray-500 text-sm mb-1 block">Listing Title</label>
+                        <div class="relative">
+                            <i class="fas fa-briefcase absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-600"></i>
+                            <input type="text" placeholder="Name of your business" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-gray-500 text-sm mb-1 block">Type</label>
+                        <select class="w-full pl-4 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>All Types</option>
+                            <option>Type 1</option>
+                            <option>Type 2</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-gray-500 text-sm mb-1 block">Listing Price</label>
+                        <div class="relative">
+                            <i class="fas fa-money-bill-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-600"></i>
+                            <input type="text" placeholder="Listing Price" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-gray-500 text-sm mb-1 block">Category</label>
+                        <select class="w-full pl-4 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>All Categories</option>
+                            <option>Category 1</option>
+                            <option>Category 2</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-2 lg:col-span-1">
+                        <label class="text-gray-500 text-sm mb-1 block">Keywords</label>
+                        <div class="relative">
+                            <i class="fas fa-key absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-600"></i>
+                            <input type="text" placeholder="Maximum 15, should be separated by commas" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location / Contacts Section -->
+            <div class="container mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
+                <div class="flex items-center text-blue-600 font-semibold mb-6">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <h2 class="text-lg">Location / Contacts</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div>
+                        <label class="text-gray-500 text-sm mb-1 block">Address</label>
+                        <div class="relative">
+                            <i class="fas fa-map-marker-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-600"></i>
+                            <input type="text" placeholder="Address of your business" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-gray-500 text-sm mb-1 block">Longitude (Drag marker on the map)</label>
+                        <div class="relative">
+                            <i class="fas fa-arrow-right absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-600"></i>
+                            <input type="text" placeholder="Map Longitude" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-gray-500 text-sm mb-1 block">Latitude (Drag marker on the map)</label>
+                        <div class="relative">
+                            <i class="fas fa-arrow-down absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-600"></i>
+                            <input type="text" placeholder="Map Latitude" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Placeholder -->
+                <div class="w-full h-80 bg-gray-200 rounded-lg overflow-hidden shadow-inner">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093745!2d144.95373631561696!3d-37.81720974229512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43a2339fb1%3A0x3045675218b0209!2sGoogle!5e0!3m2!1sen!2sus!4v1610585427564!5m2!1sen!2sus"
+                        width="100%"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                    ></iframe>
+                </div>
+            </div>
+
+            <div class="container mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
+                <!-- Section Header -->
+                <div class="flex items-center text-blue-600 font-semibold mb-6 ">
+                    <i class="fas fa-address-book mr-2"></i>
+                    <h2 class="text-lg">Contact Information</h2>
+                </div>
+        
+                <!-- Input Fields for City, Email Address, Phone, and Website -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 ">
+                    <!-- City Field -->
+                    <div>
+                        <label class="text-gray-500 text-sm mb-1 block">City</label>
+                        <div class="relative">
+                            <select class="w-full pl-4 pr-4 py-2 bg-gray-100 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option>All Cities</option>
+                                <option>City 1</option>
+                                <option>City 2</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <!-- Email Address Field -->
+                    <div>
+                        <label class="text-gray-500 text-sm mb-1 block">Email Address</label>
+                        <div class="relative">
+                            <i class="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-600"></i>
+                            <input type="text" value="JessieManrry@domain.com" class="w-full pl-10 pr-4 py-2 bg-gray-100 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+        
+                    <!-- Phone Field -->
+                    <div>
+                        <label class="text-gray-500 text-sm mb-1 block">Phone</label>
+                        <div class="relative">
+                            <i class="fas fa-phone-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-600"></i>
+                            <input type="text" value="+7(123)987654" class="w-full pl-10 pr-4 py-2 bg-gray-100 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+        
+                    <!-- Website Field -->
+                    <div>
+                        <label class="text-gray-500 text-sm mb-1 block">Website</label>
+                        <div class="relative">
+                            <i class="fas fa-globe absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-600"></i>
+                            <input type="text" value="themeforest.net" class="w-full pl-10 pr-4 py-2 bg-gray-100 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
+                <!-- Section Header -->
+                <div class="flex items-center text-blue-600 font-semibold mb-6">
+                    <i class="fas fa-image mr-2"></i>
+                    <h2 class="text-lg">Header Media</h2>
+                </div>
+        
+                <!-- Media Options -->
+                <div class="flex items-center space-x-6 mb-6">
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox text-blue-600" checked>
+                        <span class="text-gray-700">Carousel</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox text-blue-600">
+                        <span class="text-gray-700">Slider</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox text-blue-600">
+                        <span class="text-gray-700">Background image</span>
+                    </label>
+                </div>
+        
+                <!-- File Upload Area -->
+                <form id="uploadForm" class="w-full h-40 bg-gray-100 border-2 border-dashed border-blue-500 rounded-lg flex flex-col justify-center items-center cursor-pointer">
+                    <input id="fileInput" type="file" class="hidden" multiple>
+                    <i class="fas fa-cloud-upload-alt text-4xl text-blue-500 mb-2"></i>
+                    <p class="text-gray-500">Click here or drop files to upload</p>
+                </form>
+            </div>
+            <script>
+                // Trigger file input when clicking on the upload area
+                const uploadForm1 = document.getElementById('uploadForm');
+                const fileInput1 = document.getElementById('fileInput');
+        
+                uploadForm1.addEventListener('click', () => {
+                    fileInput.click();
+                });
+        
+                // Handle file selection
+                fileInput1.addEventListener('change', (event) => {
+                    const files = event.target.files;
+                    if (files.length > 0) {
+                        alert(`${files.length} file(s) selected`);
+                        // Here you could add further code to handle the uploaded files, such as uploading to a server
+                    }
+                });
+            </script>
+        
+        
+            <script>
+                // Toggle for mobile menu
+                document.getElementById('menuToggle').addEventListener('click', function () {
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    mobileMenu.classList.toggle('hidden');
+                });
+            </script>
+        
+        <div class="container mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
+            <!-- Section Header -->
+            <div class="flex items-center text-blue-600 font-semibold mb-6">
+                <i class="fas fa-list-alt mr-2"></i>
+                <h2 class="text-lg">Listing Details</h2>
+            </div>
+        
+            <!-- Form Fields -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4 mb-6">
+                <!-- Area Field -->
+                <div>
+                    <label class="text-gray-500 text-sm mb-1 block">Area:</label>
+                    <div class="relative bg-gray-100 rounded-lg p-4">
+                        <i class="fas fa-vector-square text-blue-600 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                        <input type="text" placeholder="House Area" class="w-full bg-gray-100 pl-10 border-none focus:outline-none">
+                    </div>
+                </div>
+        
+                <!-- Bedrooms Field -->
+                <div>
+                    <label class="text-gray-500 text-sm mb-1 block">Bedrooms:</label>
+                    <div class="relative bg-gray-100 rounded-lg p-4">
+                        <i class="fas fa-bed text-blue-600 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                        <input type="text" placeholder="House Bedrooms" class="w-full bg-gray-100 pl-10 border-none focus:outline-none">
+                    </div>
+                </div>
+        
+                <!-- Details Text Area -->
+                <div class="md:col-span-2 lg:col-span-1">
+                    <label class="text-gray-500 text-sm mb-1 block">Details Text:</label>
+                    <textarea placeholder="Details" class="w-full bg-gray-100 rounded-lg p-4 h-24 border-none focus:outline-none"></textarea>
+                </div>
+        
+                <!-- Accommodation Field -->
+                <div>
+                    <label class="text-gray-500 text-sm mb-1 block">Accommodation:</label>
+                    <div class="relative bg-gray-100 rounded-lg p-4">
+                        <i class="fas fa-users text-blue-600 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                        <input type="text" placeholder="Listing Accommodation" class="w-full bg-gray-100 pl-10 border-none focus:outline-none">
+                    </div>
+                </div>
+        
+                <!-- Bathrooms Field -->
+                <div>
+                    <label class="text-gray-500 text-sm mb-1 block">Bathrooms:</label>
+                    <div class="relative bg-gray-100 rounded-lg p-4">
+                        <i class="fas fa-bath text-blue-600 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                        <input type="text" placeholder="House Bathrooms" class="w-full bg-gray-100 pl-10 border-none focus:outline-none">
+                    </div>
+                </div>
+        
+                <!-- Yard Size Field -->
+                <div>
+                    <label class="text-gray-500 text-sm mb-1 block">Yard size:</label>
+                    <div class="relative bg-gray-100 rounded-lg p-4">
+                        <i class="fas fa-tree text-blue-600 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                        <input type="text" placeholder="Yard size" class="w-full bg-gray-100 pl-10 border-none focus:outline-none">
+                    </div>
+                </div>
+        
+                <!-- Garage Field -->
+                <div>
+                    <label class="text-gray-500 text-sm mb-1 block">Garage:</label>
+                    <div class="relative bg-gray-100 rounded-lg p-4">
+                        <i class="fas fa-warehouse text-blue-600 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                        <input type="text" placeholder="Number of cars" class="w-full bg-gray-100 pl-10 border-none focus:outline-none">
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Amenities Checkboxes -->
+            <div class="mb-6">
+                <label class="text-gray-500 text-sm block mb-2">Amenities:</label>
+                <div class="flex flex-wrap gap-x-6 gap-y-2">
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox text-blue-600" checked>
+                        <span class="text-gray-700">Wi Fi</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox text-blue-600" checked>
+                        <span class="text-gray-700">Pool</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox text-blue-600">
+                        <span class="text-gray-700">Security</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox text-blue-600">
+                        <span class="text-gray-700">Laundry Room</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox text-blue-600" checked>
+                        <span class="text-gray-700">Equipped Kitchen</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox text-blue-600">
+                        <span class="text-gray-700">Air Conditioning</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox text-blue-600">
+                        <span class="text-gray-700">Parking</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class=" mt-[20px] bg-white p-6 rounded-lg shadow-md">
+            <!-- Header with Toggle Switch -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-semibold text-blue-500 flex items-center">
+                    <span class="material-icons mr-2">home</span> Rooms
+                </h2>
+                <!-- Toggle Switch -->
+                <label class="flex items-center space-x-2">
+                    
+                   
+                    
+                </label>
+            </div>
+    
+            <!-- Main Room Form Fields -->
+            <div id="room-container">
+                <!-- This container will hold all room entries, including new ones added dynamically -->
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <!-- Room Title -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 mb-1">Room Title:</label>
+                            <div class="flex items-center px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                                <span class="material-icons text-blue-500">layers</span>
+                                <input type="text" placeholder="Standard Family Room" class="flex-1 bg-transparent outline-none pl-2 text-gray-600">
+                            </div>
+                        </div>
+    
+                        <!-- Additional Room -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 mb-1">Additional Room:</label>
+                            <div class="flex items-center px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                                <span class="material-icons text-blue-500">group_work</span>
+                                <input type="text" placeholder="Example: Sauna" class="flex-1 bg-transparent outline-none pl-2 text-gray-600">
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Room Details -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Room Details:</label>
+                        <textarea placeholder="Details" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-600"></textarea>
+                    </div>
+    
+                    <!-- Room Images Upload -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Room Images:</label>
+                        <div class="border-2 border-dashed border-blue-300 rounded-lg h-40 flex flex-col items-center justify-center text-gray-500 cursor-pointer hover:bg-gray-50">
+                            <span class="material-icons text-blue-500 mb-2">cloud_upload</span>
+                            <p>Click here or drop files to upload</p>
+                        </div>
+                    </div>
+    
+                    <!-- Amenities Checkboxes -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Amenities:</label>
+                        <div class="flex items-center space-x-4 text-gray-700">
+                            <label><input type="checkbox" class="mr-2">Air conditioner</label>
+                            <label><input type="checkbox" class="mr-2">Tv Inside</label>
+                            <label><input type="checkbox" class="mr-2">Ceramic bath</label>
+                            <label><input type="checkbox" class="mr-2">Microwave</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Add New Button -->
+            <button onclick="addNewRoom()" class="flex items-center mt-6 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-blue-100 focus:outline-none">
+                <span class="material-icons text-blue-500 mr-2"></span> Add New
+            </button>
+        </div>
+        
+
+
+
+
+
+
+        <div id="plans-container" class="p-6 bg-white rounded-lg shadow-md mt-[10px]">
+            <!-- Header with Toggle Switch -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                    <span class="material-icons text-blue-500 mr-2">straighten</span>
+                    House Plans
+                </h2>
+                <!-- Toggle Switch -->
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" class="sr-only peer">
+                    <div class="w-11 h-6 bg-blue-400 peer-focus:outline-none rounded-full peer dark:bg-blue-600 peer-checked:bg-blue-600 relative">
+                        <span class="w-5 h-5 bg-white rounded-full shadow-md absolute left-0 top-0 m-0.5 transition-transform peer-checked:translate-x-full"></span>
+                    </div>
+                    <span class="ml-3 text-gray-600">OFF</span>
+                </label>
+            </div>
+        
+            <!-- Initial Form Fields -->
+            <div class="plan-entry grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 relative">
+                <!-- Plan Title -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Plan Title:</label>
+                    <div class="flex items-center px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+                        <span class="material-icons text-blue-500">architecture</span>
+                        <input type="text" placeholder="First Floor Plan" class="flex-1 bg-transparent outline-none pl-2 text-gray-700">
+                    </div>
+                </div>
+        
+                <!-- Plan Optional Info -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Plan Optional Info:</label>
+                    <div class="flex items-center px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+                        <span class="material-icons text-blue-500">straighten</span>
+                        <input type="text" placeholder="Example: 286 sq ft" class="flex-1 bg-transparent outline-none pl-2 text-gray-700">
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Plan Details -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-600 mb-1">Plan Details</label>
+                <textarea placeholder="Details" class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-700"></textarea>
+            </div>
+        
+            <!-- Upload Images -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-600 mb-1">Upload Images</label>
+                <div class="border-2 border-dashed border-blue-300 rounded-lg h-40 flex flex-col items-center justify-center text-gray-500 cursor-pointer hover:bg-gray-50">
+                    <span class="material-icons text-blue-500 mb-2">cloud_upload</span>
+                    <p>Click here or drop files to upload</p>
+                </div>
+            </div>
+        
+            <!-- Add New Button -->
+            <button onclick="addNewPlan()" class="flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-blue-100 transition focus:outline-none">
+                <span class="material-icons text-blue-500 mr-2"></span>
+                ADD NEW
+            </button>
+        </div>
+        
+        <script>
+            function addNewPlan() {
+                // Create a unique ID for each plan entry
+                const newPlanId = `plan-${Date.now()}`;
+        
+                // Define a new plan entry HTML structure
+                const newPlan = `
+                    <div id="${newPlanId}" class="plan-entry grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 relative">
+                        <!-- Delete Icon -->
+                        <button onclick="deletePlan('${newPlanId}')" class="absolute top-0 right-0 text-red-500 hover:text-red-700 focus:outline-none">
+                            <span class="material-icons">close</span>
+                        </button>
+        
+                        <!-- Plan Title -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 mb-1">Plan Title:</label>
+                            <div class="flex items-center px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+                                <span class="material-icons text-blue-500">architecture</span>
+                                <input type="text" placeholder="New Plan Title" class="flex-1 bg-transparent outline-none pl-2 text-gray-700">
+                            </div>
+                        </div>
+        
+                        <!-- Plan Optional Info -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 mb-1">Plan Optional Info:</label>
+                            <div class="flex items-center px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+                                <span class="material-icons text-blue-500">straighten</span>
+                                <input type="text" placeholder="Example: 300 sq ft" class="flex-1 bg-transparent outline-none pl-2 text-gray-700">
+                            </div>
+                        </div>
+        
+                        <!-- Plan Details -->
+                        <div class="col-span-1 md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-600 mb-1">Plan Details</label>
+                            <textarea placeholder="Details" class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-700"></textarea>
+                        </div>
+        
+                        <!-- Upload Images -->
+                        <div class="col-span-1 md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-600 mb-1">Upload Images</label>
+                            <div class="border-2 border-dashed border-blue-300 rounded-lg h-40 flex flex-col items-center justify-center text-gray-500 cursor-pointer hover:bg-gray-50">
+                                <span class="material-icons text-blue-500 mb-2">cloud_upload</span>
+                                <p>Click here or drop files to upload</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                // Append the new plan entry to the container
+                document.getElementById('plans-container').insertAdjacentHTML('beforeend', newPlan);
+            }
+        
+            function deletePlan(planId) {
+                const planElement = document.getElementById(planId);
+                if (planElement) {
+                    planElement.remove();
+                }
+            }
+        </script>
+        
+
+
+        
+
+        <div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
+            <!-- Section Header -->
+            <div class="flex items-center text-blue-600 font-semibold mb-6">
+                <i class="fas fa-sliders-h mr-2"></i>
+                <h2 class="text-lg">Content Widgets</h2>
+            </div>
+    
+            <!-- Content Widgets Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Video Presentation -->
+                <div class="bg-gray-50 p-4 rounded-lg shadow-md flex flex-col">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-700 font-semibold">VIDEO PRESENTATION</span>
+                        <div class="flex items-center space-x-2">
+                            <span id="videoToggleLabel" class="text-gray-700">OFF</span>
+                            <button onclick="toggleSwitch('videoToggle', 'videoToggleLabel')" class="toggle-label bg-blue-500 w-12 h-6 rounded-full relative">
+                                <span id="videoToggle" class="toggle-indicator bg-white w-5 h-5 rounded-full absolute top-0.5 left-0.5 transition-transform"></span>
+                            </button>
+                        </div>
+                    </div>
+    
+                    <label class="text-gray-500 text-sm mb-1">Video Youtube:</label>
+                    <div class="relative mb-4">
+                        <i class="fab fa-youtube text-blue-600 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                        <input type="text" placeholder="Youtube Or Vimeo" class="w-full bg-gray-100 pl-10 py-2 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+    
+                    <label class="text-gray-500 text-sm mb-1">Video Vimeo:</label>
+                    <div class="relative">
+                        <i class="fab fa-vimeo text-blue-600 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                        <input type="text" placeholder="Youtube Or Vimeo" class="w-full bg-gray-100 pl-10 py-2 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+    
+                <!-- Property Documents Upload -->
+                <div class="bg-gray-50 p-4 rounded-lg shadow-md flex flex-col">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-700 font-semibold">PROPERTY DOCUMENTS</span>
+                        <div class="flex items-center space-x-2">
+                            <span id="documentsToggleLabel" class="text-gray-700">OFF</span>
+                            <button onclick="toggleSwitch('documentsToggle', 'documentsToggleLabel')" class="toggle-label bg-blue-500 w-12 h-6 rounded-full relative">
+                                <span id="documentsToggle" class="toggle-indicator bg-white w-5 h-5 rounded-full absolute top-0.5 left-0.5 transition-transform"></span>
+                            </button>
+                        </div>
+                    </div>
+    
+                    <!-- File Upload Area -->
+                    <form id="uploadForm" class="w-full h-40 bg-gray-100 border-2 border-dashed border-blue-500 rounded-lg flex flex-col justify-center items-center cursor-pointer" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
+                        <input id="fileInput" type="file" class="hidden" multiple>
+                        <i class="fas fa-cloud-upload-alt text-4xl text-blue-500 mb-2"></i>
+                        <p class="text-gray-500">Click here or drop files to upload</p>
+                    </form>
+                </div>
+    
+                <!-- Right-side Widgets -->
+                <div class="bg-gray-50 p-4 rounded-lg shadow-md space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-700 font-semibold">MORTGAGE CALCULATOR</span>
+                        <div class="flex items-center space-x-2">
+                            <span id="mortgageToggleLabel" class="text-gray-700">ON</span>
+                            <button onclick="toggleSwitch('mortgageToggle', 'mortgageToggleLabel')" class="toggle-label bg-blue-500 w-12 h-6 rounded-full relative">
+                                <span id="mortgageToggle" class="toggle-indicator bg-white w-5 h-5 rounded-full absolute top-0.5 left-6 transition-transform transform translate-x-full"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-700 font-semibold">GOOGLE MAP</span>
+                        <div class="flex items-center space-x-2">
+                            <span id="googleMapToggleLabel" class="text-gray-700">OFF</span>
+                            <button onclick="toggleSwitch('googleMapToggle', 'googleMapToggleLabel')" class="toggle-label bg-blue-500 w-12 h-6 rounded-full relative">
+                                <span id="googleMapToggle" class="toggle-indicator bg-white w-5 h-5 rounded-full absolute top-0.5 left-0.5 transition-transform"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-700 font-semibold">CONTACT FORM</span>
+                        <div class="flex items-center space-x-2">
+                            <span id="contactFormToggleLabel" class="text-gray-700">OFF</span>
+                            <button onclick="toggleSwitch('contactFormToggle', 'contactFormToggleLabel')" class="toggle-label bg-blue-500 w-12 h-6 rounded-full relative">
+                                <span id="contactFormToggle" class="toggle-indicator bg-white w-5 h-5 rounded-full absolute top-0.5 left-0.5 transition-transform"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Save Changes Button -->
+            <div class="flex justify-start mt-6">
+                <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Save Changes</button>
+            </div>
+        </div>
+    
+        <script>
+            // Toggle button functionality
+            function toggleSwitch(toggleId, labelId) {
+                const toggle = document.getElementById(toggleId);
+                const label = document.getElementById(labelId);
+    
+                if (label.textContent === "OFF") {
+                    toggle.style.transform = "translateX(100%)";
+                    label.textContent = "ON";
+                } else {
+                    toggle.style.transform = "translateX(0)";
+                    label.textContent = "OFF";
+                }
+            }
+    
+            // File upload interaction
+            const uploadForm2 = document.getElementById('uploadForm2');
+            const fileInput2 = document.getElementById('fileInput2');
+    
+            uploadForm2.addEventListener('click', () => {
+                fileInput.click();
+            });
+    
+            fileInput2.addEventListener('change', (event) => {
+                const files = event.target.files;
+                if (files.length > 0) {
+                    alert(`${files.length} file(s) selected`);
+                }
+            });
+    
+            function handleDragOver(event) {
+                event.preventDefault();
+                uploadForm2.classList.add('bg-blue-50');
+            }
+    
+            function handleDrop(event) {
+                event.preventDefault();
+                uploadForm2.classList.remove('bg-blue-50');
+                const files = event.dataTransfer.files;
+                fileInput2.files = files;
+                alert(`${files.length} file(s) dropped`);
+            }
+        </script>
+    
+        <style>
+            /* Toggle switch custom styling */
+            .toggle-indicator {
+                transition: transform 0.2s;
+            }
+        </style>
+
+
+
+
+        
+
+            
+
+
+        </div>
+    </div>
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+  
+
+ 
+
+
+
+<style>
+    /* Toggle switch custom styling */
+    .toggle-checkbox:checked + .toggle-label .toggle-indicator {
+        transform: translateX(100%);
+    }
+</style>
+
+<script>
+    // Trigger file input when clicking on the upload area
+    const uploadForm = document.getElementById('uploadForm');
+    const fileInput = document.getElementById('fileInput');
+
+    uploadForm.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // Handle file selection
+    fileInput.addEventListener('change', (event) => {
+        const files = event.target.files;
+        if (files.length > 0) {
+            alert(`${files.length} file(s) selected`);
+            // Here you could add further code to handle the uploaded files, such as uploading to a server
+        }
+    });
+
+    // Optional: Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadForm.addEventListener(eventName, (e) => e.preventDefault());
+    });
+
+    // Highlight upload area on drag
+    uploadForm.addEventListener('dragover', () => {
+        uploadForm.classList.add('bg-blue-50');
+    });
+
+    uploadForm.addEventListener('dragleave', () => {
+        uploadForm.classList.remove('bg-blue-50');
+    });
+
+    // Handle dropped files
+    uploadForm.addEventListener('drop', (event) => {
+        const files = event.dataTransfer.files;
+        fileInput.files = files;
+        alert(`${files.length} file(s) dropped`);
+        uploadForm.classList.remove('bg-blue-50');
+    });
+</script>
+</body>
+</html>
+
+

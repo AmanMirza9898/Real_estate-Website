@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Listing</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="bg-gray-100">
+
+     <!-- Navbar -->
+  <nav class="bg-white shadow-md py-3">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      
+      <!-- Logo and Search -->
+      <div class="flex items-center space-x-4">
+        <a href="#" class="flex items-center space-x-1">
+          <img src="logo.png" alt="Logo" class="">
+          
+        </a>
+
+        <!-- Search Bar -->
+        <div class="hidden lg:flex items-center bg-gray-100 rounded-full px-4 py-2 ml-4">
+          <i class="fas fa-search text-gray-400"></i>
+          <input type="text" placeholder="Search..." class="bg-transparent focus:outline-none ml-2 w-40">
+        </div>
+      </div>
+
+      <!-- Menu Links and Action Buttons -->
+      <div class="hidden lg:flex items-center space-x-6">
+        <a href="http://127.0.0.1:5500/main/home.html" class="text-blue-600 font-semibold">Home</a>
+        
+        <!-- Dropdown Links -->
+        <div class="relative group">
+          <a href="http://127.0.0.1:5500/main/listing.html" class="hover:text-blue-600">Listings <i class="fas fa-chevron-down text-xs"></i></a>
+          <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 py-2 w-40">
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Buy</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Rent</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Sell</a>
+          </div>
+        </div>
+
+        <div class="relative group">
+          <a href="#" class="hover:text-blue-600">Agents <i class="fas fa-chevron-down text-xs"></i></a>
+          <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 py-2 w-40">
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Agent List</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Agent Profile</a>
+          </div>
+        </div>
+
+        <a href="#" class="hover:text-blue-600">News</a>
+
+        <div class="relative">
+          <button id="dropdownButton" class="hover:text-blue-600 flex items-center">
+              Pages <i class="fas fa-chevron-down text-xs ml-1"></i>
+          </button>
+          <div id="dropdownMenu" class="absolute hidden bg-white shadow-md rounded-md mt-2 py-2 w-40 z-10">
+              <a href="http://127.0.0.1:5500/main/About.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">About Us</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Contact</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">FAQ</a>
+              <a href="http://127.0.0.1:5500/main/index_2.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Blog</a>
+              <a href="http://127.0.0.1:5500/main/index.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">User Dashboard</a>
+          </div>
+      </div>
+      
+      <script>
+          const dropdownButton = document.getElementById('dropdownButton');
+          const dropdownMenu = document.getElementById('dropdownMenu');
+      
+          dropdownButton.addEventListener('click', () => {
+              // Toggle the visibility of the dropdown menu
+              dropdownMenu.classList.toggle('hidden');
+          });
+      
+          // Optional: Close the dropdown when clicking outside of it
+          document.addEventListener('click', (event) => {
+              if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                  dropdownMenu.classList.add('hidden');
+              }
+          });
+      </script>
+      
+
+        <a href="http://127.0.0.1:5500/main/login.html" class="flex items-center space-x-1">
+          <i class="fas fa-user text-gray-600"></i>
+          <span class="hover:text-blue-600">Sign In</span>
+        </a>
+
+        <!-- Notification Bell with Badge -->
+        <a href="#" class="relative">
+          <i class="fas fa-bell text-gray-600"></i>
+          <span class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">5</span>
+        </a>
+
+        <!-- Language Selector -->
+        <a href="#" class="hover:text-blue-600">
+          <i class="fas fa-globe text-gray-600"></i> <i class="fas fa-chevron-down text-xs"></i>
+        </a>
+
+        <!-- Add Listing Button -->
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md"><a href="http://127.0.0.1:5500/main/listing.html">+ Add Listing</a></button>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <div class="lg:hidden flex items-center">
+        <button id="menu-toggle" class="focus:outline-none">
+          <i class="fas fa-bars text-gray-600 text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden px-4 pt-4 pb-6 hidden">
+      <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 mb-4">
+        <i class="fas fa-search text-gray-400"></i>
+        <input type="text" placeholder="Search..." class="bg-transparent focus:outline-none ml-2 w-full">
+      </div>
+      <a href="http://127.0.0.1:5500/main/home.html" class="block py-2 text-blue-600 font-semibold">Home</a>
+      <a href="http://127.0.0.1:5500/main/listing.html" class="block py-2 hover:text-blue-600">Listings</a>
+      <a href="#" class="block py-2 hover:text-blue-600">Agents</a>
+      <a href="#" class="block py-2 hover:text-blue-600">News</a>
+      <a href="http://127.0.0.1:5500/main/index_2.html"class="block py-2 hover:text-blue-600">Pages</a>
+      <i class="fa-solid fa-user"></i> <a href="http://127.0.0.1:5500/main/login.html">Sign IN</a>
+      
+      <div class="flex items-center space-x-4 mt-4">
+        <a href="#"><i class="fas fa-bell text-gray-600"></i></a>
+        <a href="#"><i class="fas fa-globe text-gray-600"></i></a>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-full w-full"><a href="http://127.0.0.1:5500/main/listing.html">+ Add Listing</a></button>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    // Toggle mobile menu visibility
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+  </script>
+
+
+
+
+
+<div class="bg-white w-full mx-auto p-4 md:p-8 lg:px-16 xl:px-24 shadow-md">
+  <div class="relative bg-cover bg-center h-96 md:h-128 flex items-center" style="background-image: url('istockphoto-1213695547-612x612.jpg');">
+    <div class="bg-black bg-opacity-30 w-full h-full absolute top-0 left-0"></div>
+    <div class="relative text-white px-4 md:px-12 lg:px-16 xl:px-20 z-10 w-full">
+      <div class="flex space-x-4 mb-4">
+        <button class="bg-blue-600 text-white px-4 py-1 rounded-md">Rent</button>
+        <button class="bg-blue-600 text-white px-4 py-1 rounded-md">Sale</button>
+        <button class="bg-blue-600 text-white px-4 py-1 rounded-md">Apartment</button>
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-semibold">House in Financial District</h1>
+      <p class="flex items-center mt-2">
+        <span class="text-sm md:text-base">70 Bright St New York, USA</span>
+        <span class="flex items-center ml-4 text-yellow-400">
+          <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.567-.955L10 0l2.945 5.955 6.567.955-4.756 4.635 1.122 6.545L10 15z"/>
+          </svg>
+          <span class="text-white ml-1">Good</span>
+        </span>
+      </p>
+      <p class="mt-4 text-xl md:text-2xl lg:text-3xl font-bold text-blue-500">$50,500</p>
+      <p class="text-sm md:text-base mt-2">Date: 20.05.2020</p>
+    </div>
+    <div class="absolute bottom-4 right-4 flex space-x-2">
+      <button class="bg-white bg-opacity-75 p-2 rounded-full shadow-md hover:bg-opacity-100">
+        <svg class="w-5 h-5 md:w-6 md:h-6 text-blue-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path d="M18 8a6 6 0 01-11.338 2H4v4a1 1 0 01-1 1H2v-4H1v-1H0V8a1 1 0 011-1h1V6h1V5h1V4h1V3h2V2h4v1h2v1h2v1h2v1h2v1h1v1h-1v1h-1v1h-1v2h-1a1 1 0 01-1 1h-1v-2h-1v-1h-2V8H9a1 1 0 01-1 1H6a1 1 0 01-1 1H4v2H3v4H2v1h2v-4h1v-2h1v2h1V8h1v1h1v-1h1V6h1v1h2a1 1 0 011 1z" />
+        </svg>
+      </button>
+      <div class="bg-white bg-opacity-75 p-2 rounded-full shadow-md">
+        <p class="text-xs md:text-sm">Viewed - 156</p>
+      </div>
+      <div class="bg-white bg-opacity-75 p-2 rounded-full shadow-md">
+        <p class="text-xs md:text-sm">Bookmark - 24</p>
+      </div>
+    </div>
+  </div>
+  <div class="mt-4 flex justify-between items-center">
+    <div class="flex space-x-2">
+      <button class="bg-white border border-blue-600 text-blue-600 px-4 py-2 rounded-md shadow hover:bg-blue-600 hover:text-white">Save</button>
+      <button class="bg-white border border-blue-600 text-blue-600 px-4 py-2 rounded-md shadow hover:bg-blue-600 hover:text-white">Share</button>
+    </div>
+    <button class="bg-white border border-gray-300 px-3 py-2 rounded-md shadow hover:bg-gray-100">
+      <svg class="w-5 h-5 text-gray-600" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+  </div>
+  <div class="mt-2 text-sm md:text-base">
+    <a href="#" class="text-gray-600 hover:text-blue-600">Home</a> &gt;
+    <a href="#" class="text-gray-600 hover:text-blue-600">Listings</a> &gt;
+    <a href="#" class="text-gray-600 hover:text-blue-600">New York</a> &gt;
+    <span class="text-gray-400">Property Single</span>
+  </div>
+</div>
+
+
+<div class="flex flex-col lg:flex-row min-h-screen gap-8 p-4 sm:p-40">
+    <!-- Image Gallery Section -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-1">
+      <!-- Top row images -->
+      <div class="w-full h-48 bg-cover bg-center rounded-md" style="background-image: url('bed 1.jpg')"></div>
+      <div class="w-full h-48 bg-cover bg-center rounded-md" style="background-image: url('bed2.jpg')"></div>
+      <div class="w-full h-48 bg-cover bg-center rounded-md" style="background-image: url('bed3.jpg')"></div>
+
+      <!-- Middle row with larger center image -->
+      <div class="w-full h-48 sm:h-64 lg:h-96 bg-cover bg-center rounded-md col-span-1 lg:col-span-2 lg:row-span-2" style="background-image: url('bed4.jpg')"></div>
+
+      <!-- Vertical side images -->
+      <div class="w-full h-48 bg-cover bg-center rounded-md" style="background-image: url('bed5.jpg')"></div>
+      <div class="w-full h-48 bg-cover bg-center rounded-md" style="background-image: url('bed6.jpg')"></div>
+    </div>
+
+    <!-- Agent Profile Section -->
+    <div class="flex flex-col bg-white shadow-md rounded-md lg:w-1/3 mt-4 lg:mt-0 lg:ml-4">
+      <div class="bg-blue-500 text-white p-4 sm:p-6 rounded-t-md flex items-center">
+        <img src="https://via.placeholder.com/100" alt="Agent Profile" class="w-12 sm:w-16 h-12 sm:h-16 rounded-full border-2 border-white">
+        <div class="ml-4">
+          <h2 class="text-lg sm:text-xl font-semibold">Jessie Wilcox</h2>
+          <p class="text-xs sm:text-sm">22 Property Listings</p>
+          <div class="flex mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.366 6.91l6.564-.955L10 0l3.07 5.955 6.564.955-4.878 4.635 1.122 6.545L10 15z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.366 6.91l6.564-.955L10 0l3.07 5.955 6.564.955-4.878 4.635 1.122 6.545L10 15z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.366 6.91l6.564-.955L10 0l3.07 5.955 6.564.955-4.878 4.635 1.122 6.545L10 15z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.366 6.91l6.564-.955L10 0l3.07 5.955 6.564.955-4.878 4.635 1.122 6.545L10 15z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.366 6.91l6.564-.955L10 0l3.07 5.955 6.564.955-4.878 4.635 1.122 6.545L10 15z"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="p-2 sm:p-4">
+        <div class="mb-4">
+          <p class="flex items-center mb-2">
+            <span class="material-icons text-blue-500 mr-2">phone</span> 
+            <strong class="text-xs sm:text-sm">+7(123)987654</strong>
+          </p>
+          <p class="flex items-center mb-2">
+            <span class="material-icons text-blue-500 mr-2">email</span> 
+            <strong class="text-xs sm:text-sm">JessieWilcox@domain.com</strong>
+          </p>
+          <p class="flex items-center">
+            <span class="material-icons text-blue-500 mr-2">public</span> 
+            <strong class="text-xs sm:text-sm">themeforest.net</strong>
+          </p>
+        </div>
+        <button class="bg-blue-500 text-white px-2 sm:px-4 py-1 sm:py-2 rounded-md w-full">View Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  <div class="container mx-auto flex flex-col lg:flex-row gap-8 sm:px-40 p-4">
+    <!-- Left Section -->
+    <div class="flex-1">
+      <!-- Top Information Section -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white p-4 rounded-lg shadow flex flex-col items-center">
+          <div class="text-blue-500 text-3xl mb-2">
+            <i class="material-icons">home</i>
+          </div>
+          <h3 class="text-lg font-semibold">Type</h3>
+          <p class="text-gray-700">Apartment/House</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow flex flex-col items-center">
+          <div class="text-blue-500 text-3xl mb-2">
+            <i class="material-icons">group</i>
+          </div>
+          <h3 class="text-lg font-semibold">Accommodation</h3>
+          <p class="text-gray-700">6 Guest</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow flex flex-col items-center">
+          <div class="text-blue-500 text-3xl mb-2">
+            <i class="material-icons">bed</i>
+          </div>
+          <h3 class="text-lg font-semibold">Bedrooms</h3>
+          <p class="text-gray-700">3 Bedrooms / 4 Beds</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow flex flex-col items-center">
+          <div class="text-blue-500 text-3xl mb-2">
+            <i class="material-icons">bathtub</i>
+          </div>
+          <h3 class="text-lg font-semibold">Bathrooms</h3>
+          <p class="text-gray-700">3 Full</p>
+        </div>
+      </div>
+
+      <!-- About This Listing Section -->
+      <div class="bg-white p-6 rounded-lg shadow mb-8">
+        <h2 class="text-2xl font-semibold mb-4">About This Listing</h2>
+        <p class="text-gray-700 mb-4">
+          Praesent eros turpis, commodo vel justo at, pulvinar mollis eros. Mauris aliquet eu quam id ornare. Morbi ac quam enim. Cras vitae nulla condimentum, semper dolor non, faucibus dolor. Vivamus adipiscing eros quis orci fringilla, sed pretium lectus viverra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec nec velit non odio aliquam suscipit. Sed non neque faucibus, condimentum lectus at, accumsan enim.
+        </p>
+        <p class="text-gray-700">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, a consequat purus viverra.
+        </p>
+        <button class="bg-blue-500 text-white px-6 py-2 rounded-lg mt-4">Visit Website</button>
+      </div>
+    </div>
+
+    <!-- Right Section (Similar Listings) -->
+    <div class="lg:w-1/3">
+      <div class="bg-white p-4 rounded-lg shadow">
+        <h3 class="text-lg font-semibold mb-4">Similar Listings</h3>
+        <div class="space-y-4">
+          <div class="flex items-center">
+            <img src="bed 1.jpg" alt="Listing Image" class="w-16 h-16 rounded-lg mr-4">
+            <div>
+              <h4 class="text-md font-semibold">Affordable Urban Room</h4>
+              <p class="text-gray-500 text-sm"><i class="material-icons text-blue-500 text-sm">place</i> 40 Journal Square, NJ, USA</p>
+              <p class="text-gray-700 text-sm">Price: $1500 / per month</p>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <img src="bed2.jpg" alt="Listing Image" class="w-16 h-16 rounded-lg mr-4">
+            <div>
+              <h4 class="text-md font-semibold">Family House</h4>
+              <p class="text-gray-500 text-sm"><i class="material-icons text-blue-500 text-sm">place</i> 70 Bright St, NY, USA</p>
+              <p class="text-gray-700 text-sm">Price: $50000</p>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <img src="bed3.jpg" alt="Listing Image" class="w-16 h-16 rounded-lg mr-4">
+            <div>
+              <h4 class="text-md font-semibold">Apartment to Rent</h4>
+              <p class="text-gray-500 text-sm"><i class="material-icons text-blue-500 text-sm">place</i> 75 Prince St, NY, USA</p>
+              <p class="text-gray-700 text-sm">Price: $100 / per night</p>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <img src="bed4.jpg" alt="Listing Image" class="w-16 h-16 rounded-lg mr-4">
+            <div>
+              <h4 class="text-md font-semibold">Apartment to Rent</h4>
+              <p class="text-gray-500 text-sm"><i class="material-icons text-blue-500 text-sm">place</i> 75 Prince St, NY, USA</p>
+              <p class="text-gray-700 text-sm">Price: $100 / per night</p>
+            </div>
+          </div>
+        </div>
+        <button class="bg-blue-500 text-white px-6 py-2 rounded-lg mt-4 w-full">View All Properties</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  <div class="container mx-auto flex flex-col lg:flex-row gap-8 sm:px-40 p-4">
+    <!-- Left Section -->
+    <div class="flex-1">
+      <!-- Details Section -->
+      <div class="bg-white p-4 sm:p-6 rounded-lg shadow mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Details</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <p><strong>Property Id:</strong> 154</p>
+          <p><strong>Property Lot Size:</strong> 850 m<sup>2</sup></p>
+          <p><strong>Bathrooms:</strong> 4</p>
+          <p><strong>Rooms:</strong> 8</p>
+          <p><strong>Bedrooms:</strong> 2</p>
+          <p><strong>Garage Size:</strong> 2 cars</p>
+          <p><strong>Available from:</strong> 25.05.2020</p>
+          <p><strong>Price:</strong> $50,500.00</p>
+          <p><strong>Type:</strong> Apartment/House</p>
+        </div>
+      </div>
+
+      <!-- Available Rooms Section -->
+      <div class="bg-white p-4 sm:p-6 rounded-lg shadow mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Available Rooms</h2>
+        
+        <!-- Room Card 1 -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-4">
+          <img src="bed6.jpg" alt="Room Image" class="w-full sm:w-40 h-32 object-cover rounded-md">
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold">Standard Family Room</h3>
+            <p class="text-gray-500">Additional Rooms: <a href="#" class="text-blue-500">Guest Bath</a></p>
+            <p class="text-gray-700 mb-2">Morbi varius, nulla sit amet rutrum elementum, est elit finibus tellus, ut tristique elit risus at metus.</p>
+            <span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-xs">44 / sq ft</span>
+          </div>
+        </div>
+        
+        <!-- Room Card 2 -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-4">
+          <img src="bed5.jpg" alt="Room Image" class="w-full sm:w-40 h-32 object-cover rounded-md">
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold">Luxury Suite</h3>
+            <p class="text-gray-500">Additional Rooms: <a href="#" class="text-blue-500">Private Bath</a></p>
+            <p class="text-gray-700 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at semper sapien.</p>
+            <span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-xs">75 / sq ft</span>
+          </div>
+        </div>
+
+        <!-- Room Card 3 -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-4">
+          <img src="bed4.jpg" alt="Room Image" class="w-full sm:w-40 h-32 object-cover rounded-md">
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold">Cozy Single Room</h3>
+            <p class="text-gray-500">Additional Rooms: <a href="#" class="text-blue-500">Shared Bath</a></p>
+            <p class="text-gray-700 mb-2">Phasellus egestas, odio nec tristique aliquet, nisl nunc malesuada arcu, sit amet varius eros ligula id lorem.</p>
+            <span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-xs">30 / sq ft</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Section -->
+    <div class="lg:w-1/3">
+      <!-- Mortgage Calculator -->
+      <div class="bg-blue-500 text-white p-4 sm:p-6 rounded-lg shadow mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Calculate Your Mortgage</h2>
+        <p class="text-sm mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere convallis purus non cursus.</p>
+        <form>
+          <label for="loanAmount" class="block mb-2">Loan Amount</label>
+          <input type="number" id="loanAmount" class="w-full p-2 rounded bg-blue-600 text-white mb-4" placeholder="0">
+
+          <label for="rate" class="block mb-2">Percentage rate</label>
+          <input type="range" id="rate" class="w-full mb-4">
+
+          <label for="term" class="block mb-2">Loan Term (Years)</label>
+          <input type="range" id="term" class="w-full mb-4">
+
+          <button type="submit" class="bg-white text-blue-500 font-semibold px-4 py-2 rounded w-full mt-4">Calculate</button>
+          <button type="reset" class="text-sm mt-4 flex items-center justify-center gap-1">
+            <i class="material-icons">autorenew</i> Reset Form
+          </button>
+        </form>
+      </div>
+
+      <!-- Downloadable Documents Section -->
+      <div class="bg-white p-4 sm:p-6 rounded-lg shadow">
+        <h3 class="text-lg font-semibold mb-4">Downloadable Documents</h3>
+        <ul class="space-y-4">
+          <li class="flex items-center justify-between">
+            <div class="flex items-center">
+              <i class="material-icons text-blue-500 mr-2">description</i>
+              <span>Property Presentation</span>
+            </div>
+            <i class="material-icons text-gray-400">download</i>
+          </li>
+          <li class="flex items-center justify-between">
+            <div class="flex items-center">
+              <i class="material-icons text-blue-500 mr-2">description</i>
+              <span>Energetic Certificate</span>
+            </div>
+            <i class="material-icons text-gray-400">download</i>
+          </li>
+          <li class="flex items-center justify-between">
+            <div class="flex items-center">
+              <i class="material-icons text-blue-500 mr-2">description</i>
+              <span>Property Plans</span>
+            </div>
+            <i class="material-icons text-gray-400">download</i>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  <div class="container mx-auto flex flex-col lg:flex-row gap-8 sm:px-40 p-4">
+    <!-- Left Section (Scrollable) -->
+    <div class="flex-1 bg-white rounded-lg shadow p-4 sm:p-6 overflow-y-auto max-h-screen">
+      <h2 class="text-2xl font-semibold mb-4 bg-blue-500 p-4 rounded-md text-white">Floor Plan and Details</h2>
+      <img src="Screenshot 2024-11-01 163947.png" alt="Floor Plan" class="w-full rounded-md mb-4">
+      <p class="text-gray-700 mb-4">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt.
+      </p>
+      <div class="mt-4 space-y-2">
+        <div class="flex justify-between items-center bg-gray-100 p-2 rounded-md">
+          <span>Second Floor Plan</span>
+          <span class="bg-gray-300 text-gray-700 px-2 py-1 rounded text-sm">280 sq ft</span>
+        </div>
+        <div class="flex justify-between items-center bg-gray-100 p-2 rounded-md">
+          <span>Garage Plan</span>
+          <span class="bg-gray-300 text-gray-700 px-2 py-1 rounded text-sm">180 sq ft</span>
+        </div>
+        <!-- Additional content for scrolling -->
+        <!-- Video Section -->
+  <div class="container mx-auto bg-white rounded-lg shadow p-4 sm:p-6 mb-8">
+    <h2 class="text-2xl font-semibold mb-4">Video</h2>
+    <div class="relative">
+      <img src="bed4.jpg" alt="Video Thumbnail" class="w-full rounded-md">
+      <button class="absolute inset-0 flex justify-center items-center">
+        <div class="bg-blue-500 text-white p-4 rounded-full">
+          <i class="material-icons text-4xl">play_arrow</i>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="container mx-auto bg-white rounded-lg shadow p-4 sm:p-6">
+    <h2 class="text-2xl font-semibold mb-4">Features</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <!-- Feature Item -->
+      <div class="flex items-center">
+        <i class="material-icons text-blue-500 mr-2">fitness_center</i>
+        <span>Gym</span>
+      </div>
+      <div class="flex items-center">
+        <i class="material-icons text-blue-500 mr-2">wifi</i>
+        <span>Wi Fi</span>
+      </div>
+      <div class="flex items-center">
+        <i class="material-icons text-blue-500 mr-2">local_parking</i>
+        <span>Parking</span>
+      </div>
+      <div class="flex items-center">
+        <i class="material-icons text-blue-500 mr-2">ac_unit</i>
+        <span>Air Conditioned</span>
+      </div>
+      <div class="flex items-center">
+        <i class="material-icons text-blue-500 mr-2">pool</i>
+        <span>Pool</span>
+      </div>
+      <div class="flex items-center">
+        <i class="material-icons text-blue-500 mr-2">security</i>
+        <span>Security</span>
+      </div>
+      <div class="flex items-center">
+        <i class="material-icons text-blue-500 mr-2">local_laundry_service</i>
+        <span>Laundry Room</span>
+      </div>
+      <div class="flex items-center">
+        <i class="material-icons text-blue-500 mr-2">restaurant</i>
+        <span>Equipped Kitchen</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+   <!-- Map Section -->
+   <div class="container mx-auto bg-white rounded-lg shadow p-4 sm:p-6 mb-8">
+    <div class="relative">
+      <!-- Search Bar -->
+      <div class="absolute top-4 left-4 z-10 bg-white p-2 rounded-lg shadow-md w-80">
+        <input type="text" placeholder="What Nearby? Schools, Gyms..." class="w-full p-2 border border-gray-300 rounded-md focus:outline-none">
+        <button class="absolute right-3 top-3">
+          <i class="material-icons text-gray-500">search</i>
+        </button>
+      </div>
+      <!-- Google Map Embed -->
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345084196!2d144.9556513159026!3d-37.81732797975161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf0727f4d0d3e5e0!2sGoogle!5e0!3m2!1sen!2sus!4v1632975655045!5m2!1sen!2sus" 
+        width="100%" 
+        height="400" 
+        style="border:0; border-radius: 0.5rem;" 
+        allowfullscreen="" 
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- Reviews Section -->
+  <div class="container mx-auto bg-white rounded-lg shadow p-4 sm:p-6">
+    <h2 class="text-2xl font-semibold mb-4">Reviews <span class="text-blue-500">2</span></h2>
+    <div class="flex items-center mb-4">
+      <span class="bg-blue-500 text-white font-bold text-xl px-3 py-1 rounded-md">4.0</span>
+      <div class="ml-4 flex">
+        <i class="material-icons text-yellow-400">star</i>
+        <i class="material-icons text-yellow-400">star</i>
+        <i class="material-icons text-yellow-400">star</i>
+        <i class="material-icons text-yellow-400">star</i>
+        <i class="material-icons text-gray-300">star</i>
+      </div>
+      <span class="ml-2 text-gray-700">Good</span>
+    </div>
+  </div>
+
+  <!-- Include Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  <!-- Review Card 1 -->
+  <div class="container mx-auto bg-white rounded-lg shadow p-4 sm:p-6 mb-8 flex gap-4">
+    <!-- User Image -->
+    <img src="Employee-Journey-What-it-is-and-how-to-improve-it.jpg" alt="User Image" class="w-20 h-20 rounded-full object-cover">
+    <!-- Review Content -->
+    <div class="flex-1">
+      <div class="flex justify-between items-center">
+        <h3 class="text-xl font-semibold">Liza Rose</h3>
+        <div class="text-gray-500">
+          <i class="material-icons">more_horiz</i>
+        </div>
+      </div>
+      <div class="flex items-center mb-2">
+        <!-- Star Rating -->
+        <div class="flex">
+          <i class="material-icons text-yellow-400">star</i>
+          <i class="material-icons text-yellow-400">star</i>
+          <i class="material-icons text-yellow-400">star</i>
+          <i class="material-icons text-yellow-400">star</i>
+          <i class="material-icons text-gray-300">star</i>
+        </div>
+        <span class="ml-2 text-gray-500">Average</span>
+      </div>
+      <p class="text-gray-700 mb-4">
+        " Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. "
+      </p>
+      <div class="flex justify-between items-center text-sm text-gray-500">
+        <div class="flex items-center">
+          <i class="material-icons mr-1">event</i>
+          <span>12 April 2018</span>
+        </div>
+        <button class="flex items-center bg-blue-100 text-blue-500 px-2 py-1 rounded-md">
+          <i class="material-icons text-blue-500 mr-1">thumb_up</i>
+          Helpful Review <span class="ml-1">6</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Review Card 2 -->
+  <div class="container mx-auto bg-white rounded-lg shadow p-4 sm:p-6 mb-8 flex gap-4">
+    <!-- User Image -->
+    <img src="651a82942e9abeceaa8d3d50_Employee-Surveys-Why-They-Are-An-Essential-Tool-For-Your-HR-Team.jpg" alt="User Image" class="w-20 h-20 rounded-full object-cover">
+    <!-- Review Content -->
+    <div class="flex-1">
+      <div class="flex justify-between items-center">
+        <h3 class="text-xl font-semibold">Adam Koncy</h3>
+        <div class="text-gray-500">
+          <i class="material-icons">more_horiz</i>
+        </div>
+      </div>
+      <div class="flex items-center mb-2">
+        <!-- Star Rating -->
+        <div class="flex">
+          <i class="material-icons text-yellow-400">star</i>
+          <i class="material-icons text-yellow-400">star</i>
+          <i class="material-icons text-yellow-400">star</i>
+          <i class="material-icons text-yellow-400">star</i>
+          <i class="material-icons text-yellow-400">star</i>
+        </div>
+        <span class="ml-2 text-gray-500">Excellent</span>
+      </div>
+      <p class="text-gray-700 mb-4">
+        " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere convallis purus non cursus. Cras metus neque, gravida sodales massa ut. "
+      </p>
+      <div class="flex justify-between items-center text-sm text-gray-500">
+        <div class="flex items-center">
+          <i class="material-icons mr-1">event</i>
+          <span>03 December 2017</span>
+        </div>
+        <button class="flex items-center bg-blue-100 text-blue-500 px-2 py-1 rounded-md">
+          <i class="material-icons text-blue-500 mr-1">thumb_up</i>
+          Helpful Review <span class="ml-1">2</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Review Submission Form -->
+  <div class="container mx-auto bg-white rounded-lg shadow p-4 sm:p-6">
+    <h2 class="text-2xl font-semibold mb-4">Add Your Review</h2>
+    
+    <!-- Rating Section -->
+    <div class="flex items-center mb-4">
+      <span class="text-lg">Your rating for this listing:</span>
+      <div class="flex ml-2">
+        <i class="material-icons text-yellow-400 cursor-pointer">star</i>
+        <i class="material-icons text-yellow-400 cursor-pointer">star</i>
+        <i class="material-icons text-yellow-400 cursor-pointer">star</i>
+        <i class="material-icons text-yellow-400 cursor-pointer">star</i>
+        <i class="material-icons text-yellow-400 cursor-pointer">star</i>
+      </div>
+      <span class="ml-2 text-gray-500">Your Rating</span>
+    </div>
+
+    <!-- Form Fields -->
+    <form>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <!-- Name Field -->
+        <div class="flex items-center bg-gray-100 rounded-md">
+          <i class="material-icons p-2 text-blue-500">person</i>
+          <input type="text" placeholder="Your name*" class="w-full p-2 rounded-r-md focus:outline-none bg-gray-100">
+        </div>
+        
+        <!-- Email Field -->
+        <div class="flex items-center bg-gray-100 rounded-md">
+          <i class="material-icons p-2 text-blue-500">email</i>
+          <input type="email" placeholder="Yourmail*" class="w-full p-2 rounded-r-md focus:outline-none bg-gray-100">
+        </div>
+      </div>
+
+      <!-- Review Textarea -->
+      <textarea placeholder="Your Review:" class="w-full p-4 rounded-md bg-gray-100 focus:outline-none mb-4" rows="4"></textarea>
+
+      <!-- Submit Button -->
+      <button type="submit" class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-md w-full">Submit Review</button>
+    </form>
+  </div>
+
+  <!-- Include Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+
+
+      </div>
+    </div>
+
+    <!-- Right Section -->
+    <div class="lg:w-1/3">
+      <div class="w-full bg-blue-500 text-white rounded-lg shadow p-4 sm:p-6">
+        <h2 class="text-xl font-semibold mb-4 text-center">Contact Property</h2>
+        <form>
+          <!-- Name Field -->
+          <div class="mb-4">
+            <label for="name" class="block text-sm mb-1">Your name*</label>
+            <div class="flex items-center bg-white text-blue-500 rounded-md">
+              <i class="material-icons p-2">person</i>
+              <input type="text" id="name" class="w-full p-2 rounded-r-md focus:outline-none" placeholder="Enter your name">
+            </div>
+          </div>
+
+          <!-- Phone Field -->
+          <div class="mb-4">
+            <label for="phone" class="block text-sm mb-1">Your phone*</label>
+            <div class="flex items-center bg-white text-blue-500 rounded-md">
+              <i class="material-icons p-2">phone</i>
+              <input type="tel" id="phone" class="w-full p-2 rounded-r-md focus:outline-none" placeholder="Enter your phone">
+            </div>
+          </div>
+
+          <!-- Date and Time Fields -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <!-- Date Field -->
+            <div>
+              <label for="date" class="block text-sm mb-1">Date</label>
+              <div class="flex items-center bg-white text-blue-500 rounded-md">
+                <i class="material-icons p-2">event</i>
+                <input type="date" id="date" class="w-full p-2 rounded-r-md focus:outline-none">
+              </div>
+            </div>
+            <!-- Time Field -->
+            <div>
+              <label for="time" class="block text-sm mb-1">Time</label>
+              <div class="flex items-center bg-white text-blue-500 rounded-md">
+                <i class="material-icons p-2">access_time</i>
+                <select id="time" class="w-full p-2 rounded-r-md focus:outline-none">
+                  <option>9 AM</option>
+                  <option>10 AM</option>
+                  <option>11 AM</option>
+                  <option>12 PM</option>
+                  <option>1 PM</option>
+                  <option>2 PM</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="bg-white text-blue-500 font-semibold w-full py-2 rounded-md">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+
+  <div class="container mx-auto px-4 py-12 sm:px-30">
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <div>
+            <p class="text-blue-600 font-medium mb-2">BROWSE HOT OFFERS</p>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Latest Properties</h2>
+        </div>
+        <div class="flex flex-wrap gap-4">
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">All Categories</button>
+            <button class="text-gray-600 hover:text-gray-900 font-bold py-2 px-4 rounded">For Sale</button>
+            <button class="text-gray-600 hover:text-gray-900 font-bold py-2 px-4 rounded">For Rent</button>
+        </div>
+    </div>
+
+    <!-- Properties Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Property Card 1 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-md">
+            <div class="relative">
+                <img src="home-interior-design-ideas (1).jpg" alt="Gorgeous House" class="w-full h-[300px] object-cover">
+                <div class="absolute top-4 left-4 flex gap-2">
+                    <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Sale</span>
+                    <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Apartment</span>
+                </div>
+                <div class="absolute top-4 right-4 flex gap-2">
+                    <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-heart text-gray-600"></i>
+                    </button>
+                    <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-share-alt text-gray-600"></i>
+                    </button>
+                </div>
+                <div class="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>70 Bright St New York, USA</span>
+                </div>
+                <div class="absolute bottom-4 right-4 bg-white rounded-md px-2 py-1">
+                    <span>8 Photos</span>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Gorgeous House For Sale</h3>
+                <p class="text-2xl font-bold text-blue-600 mb-4">$ 600,000</p>
+                <p class="text-gray-600 mb-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla...
+                </p>
+                <div class="flex gap-4 text-gray-600 mb-4">
+                    <div class="flex items-center gap-1">
+                        <i class="fas fa-bed"></i>
+                        <span>3</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fas fa-bath"></i>
+                        <span>2</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fas fa-vector-square"></i>
+                        <span>450 ft²</span>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <img src="4.jpg" alt="Liza Rose" class="rounded-full h-10 w-10">
+                        <div>
+                            <p class="text-sm text-gray-600">By Liza Rose</p>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Card 2 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-md">
+            <div class="relative">
+                <img src="home-interior-design-ideas.jpg" alt="Luxury Family Home" class="w-full h-[300px] object-cover">
+                <div class="absolute top-4 left-4 flex gap-2">
+                    <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Sale</span>
+                    <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Apartment</span>
+                </div>
+                <div class="absolute top-4 right-4 flex gap-2">
+                    <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-heart text-gray-600"></i>
+                    </button>
+                    <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-share-alt text-gray-600"></i>
+                    </button>
+                </div>
+                <div class="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>40 Journal Square, NJ, USA</span>
+                </div>
+                <div class="absolute bottom-4 right-4 bg-white rounded-md px-2 py-1">
+                    <span>47 Photos</span>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Luxury Family Home</h3>
+                <p class="text-2xl font-bold text-blue-600 mb-4">$ 320,000</p>
+                <p class="text-gray-600 mb-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla...
+                </p>
+                <div class="flex gap-4 text-gray-600 mb-4">
+                    <div class="flex items-center gap-1">
+                        <i class="fas fa-bed"></i>
+                        <span>4</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fas fa-bath"></i>
+                        <span>2</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fas fa-vector-square"></i>
+                        <span>460 ft²</span>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <img src="651a82942e9abeceaa8d3d50_Employee-Surveys-Why-They-Are-An-Essential-Tool-For-Your-HR-Team.jpg" alt="Anna Lips" class="rounded-full h-10 w-10">
+                        <div>
+                            <p class="text-sm text-gray-600">By Anna Lips</p>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Card 3 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-md">
+            <div class="relative">
+                <img src="Designer-home-decor-Home-decorating-tips-and-interior-design-ideas-FB-1200x700-compressed.jpg" alt="Family House for Rent" class="w-full h-[300px] object-cover">
+                <div class="absolute top-4 left-4 flex gap-2">
+                    <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Rent</span>
+                    <span class="bg-blue-600 text-white px-4 py-1 rounded-md">House</span>
+                </div>
+                <div class="absolute top-4 right-4 flex gap-2">
+                    <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-heart text-gray-600"></i>
+                    </button>
+                    <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-share-alt text-gray-600"></i>
+                    </button>
+                </div>
+                <div class="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>34-42 Montgomery St, NY, USA</span>
+                </div>
+                <div class="absolute bottom-4 right-4 bg-white rounded-md px-2 py-1">
+                    <span>4 Photos</span>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Family House for Rent</h3>
+                <p class="text-2xl font-bold text-blue-600 mb-4">$ 700 / per month</p>
+                <p class="text-gray-600 mb-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla...
+                </p>
+                <div class="flex gap-4 text-gray-600 mb-4">
+                    <div class="flex items-center gap-1">
+                        <i class="fas fa-bed"></i>
+                        <span>2</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fas fa-bath"></i>
+                        <span>1</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fas fa-vector-square"></i>
+                        <span>220 ft²</span>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <img src="4.jpg" alt="Mark Frosty" class="rounded-full h-10 w-10">
+                        <div>
+                            <p class="text-sm text-gray-600">By Mark Frosty</p>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+ <!-- Newsletter Section -->
+ <div class="container mx-auto bg-blue-500 text-white rounded-lg shadow-lg p-20 sm:px-40 flex flex-col sm:flex-row items-center justify-between">
+    <div>
+      <h3 class="text-sm font-semibold uppercase">Newsletter</h3>
+      <h2 class="text-2xl font-bold">Sign up for newsletter and get latest news and update</h2>
+    </div>
+    <form class="flex items-center mt-4 sm:mt-0">
+      <input type="email" placeholder="Enter Your Email" class="p-3 rounded-l-md focus:outline-none w-full sm:w-64 bg-white text-gray-700">
+      <button type="submit" class="bg-white text-blue-500 font-semibold px-4 py-3 rounded-r-md hover:bg-gray-100">Subscribe</button>
+    </form>
+  </div>
+
+
+  
+
+  <!-- Footer Section -->
+  <footer class="bg-white py-12 border-t border-gray-200">
+    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+      
+      <!-- Company Info -->
+      <div>
+        <img src="logo.png" alt="Company Logo" class="w-32 mb-4">
+        <p class="text-gray-600 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar.</p>
+        <p class="text-gray-600">Monday - Friday: <span class="text-blue-600">8am - 6pm</span></p>
+        <p class="text-gray-600">Saturday - Sunday: <span class="text-blue-600">9am - 3pm</span></p>
+      </div>
+
+      <!-- Helpful Links -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Helpful links</h3>
+        <ul class="space-y-2 text-gray-600">
+          <li><a href="#" class="hover:text-blue-600">About Our Company</a></li>
+          <li><a href="#" class="hover:text-blue-600">Our last News</a></li>
+          <li><a href="#" class="hover:text-blue-600">Pricing Plans</a></li>
+          <li><a href="#" class="hover:text-blue-600">Contacts</a></li>
+          <li><a href="#" class="hover:text-blue-600">Help Center</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Contacts Info</h3>
+        <ul class="space-y-2 text-gray-600">
+          <li><span class="font-semibold">Mail:</span> yourmail@domain.com</li>
+          <li><span class="font-semibold">Adress:</span> USA 27TH Brooklyn NY</li>
+          <li><span class="font-semibold">Phone:</span> +7(111)123456789</li>
+        </ul>
+        <div class="flex space-x-2 mt-4">
+          <a href="#" class="bg-blue-600 p-2 rounded text-white"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="bg-blue-600 p-2 rounded text-white"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="bg-blue-600 p-2 rounded text-white"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="bg-blue-600 p-2 rounded text-white"><i class="fab fa-vk"></i></a>
+        </div>
+      </div>
+
+      <!-- Download API -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Download our API</h3>
+        <p class="text-gray-600 mb-4">Start working with Homeradar that can provide everything you need</p>
+        <button class="w-full bg-blue-600 text-white py-3 rounded-md mb-2 hover:bg-blue-700">App Store</button>
+        <button class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700">Play Market</button>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="bg-gray-50 py-4 mt-8">
+      <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+        <p>© Homeradar 2022. All rights reserved.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-blue-600">Terms of use</a>
+          <a href="#" class="hover:text-blue-600">Privacy Policy</a>
+          <a href="#" class="hover:text-blue-600">Blog</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

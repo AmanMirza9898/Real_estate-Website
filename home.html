@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeRadar - Real Estate Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* Smooth scroll for snapping effect */
+        .scroll-container {
+          scroll-snap-type: x mandatory;
+          overflow-x: scroll;
+          display: flex;
+          scroll-behavior: smooth;
+        }
+        .scroll-item {
+          flex: 0 0 calc(100% / 3); /* Width for three items per viewport */
+          scroll-snap-align: start;
+        }
+
+         /* Smooth scroll for snapping effect */
+    .scroll-container {
+      scroll-snap-type: x mandatory;
+      overflow-x: auto;
+      display: flex;
+      scroll-behavior: smooth;
+    }
+    .scroll-item {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+    }
+    /* Adjust width to show multiple cards on larger screens */
+    @media (min-width: 768px) {
+      .scroll-item {
+        flex: 0 0 50%;
+      }
+    }
+    @media (min-width: 1024px) {
+      .scroll-item {
+        flex: 0 0 33.33%;
+      }
+    }
+      </style>
+</head>
+<body class="font-sans">
+    <!-- Navbar -->
+  <nav class="bg-white shadow-md py-3">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      
+      <!-- Logo and Search -->
+      <div class="flex items-center space-x-4">
+        <a href="#" class="flex items-center space-x-1">
+          <img src="logo.png" alt="Logo" class="">
+          
+        </a>
+
+        <!-- Search Bar -->
+        <div class="hidden lg:flex items-center bg-gray-100 rounded-full px-4 py-2 ml-4">
+          <i class="fas fa-search text-gray-400"></i>
+          <input type="text" placeholder="Search..." class="bg-transparent focus:outline-none ml-2 w-40">
+        </div>
+      </div>
+
+      <!-- Menu Links and Action Buttons -->
+      <div class="hidden lg:flex items-center space-x-6">
+        <a href="http://127.0.0.1:5500/main/home.html" class="text-blue-600 font-semibold">Home</a>
+        
+        <!-- Dropdown Links -->
+        <div class="relative group">
+          <a href="http://127.0.0.1:5500/main/listing.html" class="hover:text-blue-600">Listings <i class="fas fa-chevron-down text-xs"></i></a>
+          <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 py-2 w-40">
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Buy</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Rent</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Sell</a>
+          </div>
+        </div>
+
+        <div class="relative group">
+          <a href="#" class="hover:text-blue-600">Agents <i class="fas fa-chevron-down text-xs"></i></a>
+          <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 py-2 w-40">
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Agent List</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Agent Profile</a>
+          </div>
+        </div>
+
+        <a href="#" class="hover:text-blue-600">News</a>
+
+        <div class="relative">
+          <button id="dropdownButton" class="hover:text-blue-600 flex items-center">
+              Pages <i class="fas fa-chevron-down text-xs ml-1"></i>
+          </button>
+          <div id="dropdownMenu" class="absolute hidden bg-white shadow-md rounded-md mt-2 py-2 w-40 z-10">
+              <a href="http://127.0.0.1:5500/main/About.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">About Us</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Contact</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">FAQ</a>
+              <a href="http://127.0.0.1:5500/main/index_2.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Blog</a>
+              <a href="http://127.0.0.1:5500/main/index.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">User Dashboard</a>
+          </div>
+      </div>
+      
+      <script>
+          const dropdownButton = document.getElementById('dropdownButton');
+          const dropdownMenu = document.getElementById('dropdownMenu');
+      
+          dropdownButton.addEventListener('click', () => {
+              // Toggle the visibility of the dropdown menu
+              dropdownMenu.classList.toggle('hidden');
+          });
+      
+          // Optional: Close the dropdown when clicking outside of it
+          document.addEventListener('click', (event) => {
+              if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                  dropdownMenu.classList.add('hidden');
+              }
+          });
+      </script>
+      
+
+        <a href="http://127.0.0.1:5500/main/login.html" class="flex items-center space-x-1">
+          <i class="fas fa-user text-gray-600"></i>
+          <span class="hover:text-blue-600">Sign In</span>
+        </a>
+
+        <!-- Notification Bell with Badge -->
+        <a href="#" class="relative">
+          <i class="fas fa-bell text-gray-600"></i>
+          <span class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">5</span>
+        </a>
+
+        <!-- Language Selector -->
+        <a href="#" class="hover:text-blue-600">
+          <i class="fas fa-globe text-gray-600"></i> <i class="fas fa-chevron-down text-xs"></i>
+        </a>
+
+        <!-- Add Listing Button -->
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md"><a href="http://127.0.0.1:5500/main/listing.html">+ Add Listing</a></button>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <div class="lg:hidden flex items-center">
+        <button id="menu-toggle" class="focus:outline-none">
+          <i class="fas fa-bars text-gray-600 text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden px-4 pt-4 pb-6 hidden">
+      <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 mb-4">
+        <i class="fas fa-search text-gray-400"></i>
+        <input type="text" placeholder="Search..." class="bg-transparent focus:outline-none ml-2 w-full">
+      </div>
+      <a href="http://127.0.0.1:5500/main/home.html" class="block py-2 text-blue-600 font-semibold">Home</a>
+      <a href="http://127.0.0.1:5500/main/listing.html" class="block py-2 hover:text-blue-600">Listings</a>
+      <a href="#" class="block py-2 hover:text-blue-600">Agents</a>
+      <a href="#" class="block py-2 hover:text-blue-600">News</a>
+      <a href="http://127.0.0.1:5500/main/index_2.html"class="block py-2 hover:text-blue-600">Pages</a>
+      <i class="fa-solid fa-user"></i> <a href="http://127.0.0.1:5500/main/login.html">Sign IN</a>
+      
+      <div class="flex items-center space-x-4 mt-4">
+        <a href="#"><i class="fas fa-bell text-gray-600"></i></a>
+        <a href="#"><i class="fas fa-globe text-gray-600"></i></a>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-full w-full"><a href="http://127.0.0.1:5500/main/listing.html">+ Add Listing</a></button>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    // Toggle mobile menu visibility
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+  </script>
+
+    <!-- Hero Section -->
+    <div class="relative min-h-screen bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');">
+        <div class="absolute inset-0 bg-black opacity-40"></div>
+        <div class="relative container mx-auto px-4 py-24 flex justify-center">
+            <div class="max-w-3xl text-white ">
+                <p class="text-lg mb-4 text-center">Real Estate Searching Platform</p>
+                <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-8 text-center">
+                    Find The House of Your<br>Dream Using Our Platform
+                </h1>
+
+
+                <!-- search bar for desktop -->
+                <div class="hidden sm:block bg-gradient-to-r from-teal-600 to-blue-700 p-4 rounded-xl">
+                  <!-- Navigation Bar -->
+                  <div class="flex flex-col md:flex-row justify-center md:justify-between items-center space-y-2 md:space-y-0">
+                      <nav class="flex flex-wrap justify-center space-x-2 sm:space-x-4 md:space-x-6 text-white text-sm md:text-base font-semibold">
+                          <button class="hover:underline border-b-2 border-white">BUY</button>
+                          <button class="hover:underline">RENT</button>
+                          <button class="hover:underline relative">
+                              COMMERCIAL
+                              <span class="absolute -top-2 -right-4 bg-pink-500 text-white text-xs font-bold px-1 py-0.5 rounded">NEW</span>
+                          </button>
+                          <button class="hover:underline">PG/CO-LIVING</button>
+                          <button class="hover:underline">PLOTS</button>
+                      </nav>
+                  </div>
+                  <!-- Search Bar -->
+                  <div class="mt-4 w-full">
+                      <div class="flex items-center bg-white rounded-full shadow-lg p-2 w-full max-w-4xl mx-auto space-x-2">
+                          <div class="flex items-center border-r border-gray-300 pr-2">
+                              <select class="text-gray-800 font-medium p-2 bg-transparent outline-none border-none w-20 md:w-32 lg:w-48">
+                                  <option>Delhi</option>
+                                  <!-- Add more options as needed -->
+                              </select>
+                              <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
+                              </svg>
+                          </div>
+                          <input 
+                              type="text" 
+                              placeholder="Search for locality, landmark, project, or builder"
+                              class="flex-grow p-2 text-black text-sm md:text-base bg-transparent outline-none"
+                          />
+                          <button class="bg-blue-500 hover:bg-green-600 text-white px-4 py-2 rounded-full font-semibold">
+                              Search
+                          </button>
+                      </div>
+                  </div>
+              </div>
+
+
+                <!-- search bar mobile -->
+                <div class="sm:hidden bg-blue-500 p-4 rounded-lg">
+                  <!-- Navigation Bar -->
+                  <div class="flex flex-wrap justify-center md:justify-start space-x-2 md:space-x-4 text-white text-sm md:text-base font-semibold mb-2 md:mb-4">
+                      <button class="px-2 py-1 bg-white text-black rounded-md md:bg-transparent md:text-white md:hover:underline">Buy</button>
+                      <button class="px-2 py-1 bg-blue-700 rounded-md hover:bg-blue-400">Rent</button>
+                      <button class="px-2 py-1 bg-blue-700 rounded-md hover:bg-blue-400">Commercial</button>
+                      <button class="px-2 py-1 bg-blue-700 rounded-md hover:bg-blue-400">Plots</button>
+                  </div>
+                  <!-- Search Bar -->
+                  <div class="mt-4 w-full">
+                      <div class="flex items-center bg-white rounded-full shadow-lg p-2 w-full max-w-md mx-auto md:max-w-4xl md:space-x-2">
+                          <input 
+                              type="text" 
+                              placeholder='Search "Paschim Vihar"'
+                              class="flex-grow p-2 text-gray-800 text-sm md:text-base bg-transparent outline-none"
+                          />
+                          <i class=" p-4 bg-blue-400 rounded-full fa-solid fa-magnifying-glass"></i>
+                          
+                          
+                      </div>
+                  </div>
+              </div>
+              
+              
+
+                <!-- Advanced Search Link -->
+                <div class="mt-6">
+                    <span class="text-gray-300">Need more search options?</span>
+                    <a href="#" class="text-white font-medium ml-2 hover:underline">Advanced Search</a>
+                </div>
+
+                <!-- Scroll Down -->
+                <div class="mt-16 animate-bounce">
+                    <p class="text-sm font-medium mb-2">Scroll Down To Discover</p>
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container mx-auto px-4 py-12">
+        <!-- Header Section -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+            <div>
+                <p class="text-blue-600 font-medium mb-2">BROWSE HOT OFFERS</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Latest Properties</h2>
+            </div>
+            <div class="flex flex-wrap gap-4">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">All Categories</button>
+                <button class="text-gray-600 hover:text-gray-900 font-bold py-2 px-4 rounded">For Sale</button>
+                <button class="text-gray-600 hover:text-gray-900 font-bold py-2 px-4 rounded">For Rent</button>
+            </div>
+        </div>
+
+        <!-- Properties Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Property Card 1 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="relative">
+                    <img src="home-interior-design-ideas (1).jpg" alt="Gorgeous House" class="w-full h-[300px] object-cover">
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Sale</span>
+                        <span class="bg-blue-600 text-white px-4 py-1 rounded-md"><a href="http://127.0.0.1:5500/main/property.html">Apartment</a></span>
+                    </div>
+                    <div class="absolute top-4 right-4 flex gap-2">
+                        <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-heart text-gray-600"></i>
+                        </button>
+                        <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-share-alt text-gray-600"></i>
+                        </button>
+                    </div>
+                    <div class="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>70 Bright St New York, USA</span>
+                    </div>
+                    <div class="absolute bottom-4 right-4 bg-white rounded-md px-2 py-1">
+                        <span>8 Photos</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Gorgeous House For Sale</h3>
+                    <p class="text-2xl font-bold text-blue-600 mb-4">$ 600,000</p>
+                    <p class="text-gray-600 mb-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla...
+                    </p>
+                    <div class="flex gap-4 text-gray-600 mb-4">
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-bed"></i>
+                            <span>3</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-bath"></i>
+                            <span>2</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-vector-square"></i>
+                            <span>450 ft²</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <img src="4.jpg" alt="Liza Rose" class="rounded-full h-10 w-10">
+                            <div>
+                                <p class="text-sm text-gray-600">By Liza Rose</p>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 2 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="relative">
+                    <img src="home-interior-design-ideas.jpg" alt="Luxury Family Home" class="w-full h-[300px] object-cover">
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Sale</span>
+                        <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Apartment</span>
+                    </div>
+                    <div class="absolute top-4 right-4 flex gap-2">
+                        <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-heart text-gray-600"></i>
+                        </button>
+                        <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-share-alt text-gray-600"></i>
+                        </button>
+                    </div>
+                    <div class="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>40 Journal Square, NJ, USA</span>
+                    </div>
+                    <div class="absolute bottom-4 right-4 bg-white rounded-md px-2 py-1">
+                        <span>47 Photos</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Luxury Family Home</h3>
+                    <p class="text-2xl font-bold text-blue-600 mb-4">$ 320,000</p>
+                    <p class="text-gray-600 mb-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla...
+                    </p>
+                    <div class="flex gap-4 text-gray-600 mb-4">
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-bed"></i>
+                            <span>4</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-bath"></i>
+                            <span>2</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-vector-square"></i>
+                            <span>460 ft²</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <img src="651a82942e9abeceaa8d3d50_Employee-Surveys-Why-They-Are-An-Essential-Tool-For-Your-HR-Team.jpg" alt="Anna Lips" class="rounded-full h-10 w-10">
+                            <div>
+                                <p class="text-sm text-gray-600">By Anna Lips</p>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 3 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="relative">
+                    <img src="Designer-home-decor-Home-decorating-tips-and-interior-design-ideas-FB-1200x700-compressed.jpg" alt="Family House for Rent" class="w-full h-[300px] object-cover">
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Rent</span>
+                        <span class="bg-blue-600 text-white px-4 py-1 rounded-md">House</span>
+                    </div>
+                    <div class="absolute top-4 right-4 flex gap-2">
+                        <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-heart text-gray-600"></i>
+                        </button>
+                        <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-share-alt text-gray-600"></i>
+                        </button>
+                    </div>
+                    <div class="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>34-42 Montgomery St, NY, USA</span>
+                    </div>
+                    <div class="absolute bottom-4 right-4 bg-white rounded-md px-2 py-1">
+                        <span>4 Photos</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Family House for Rent</h3>
+                    <p class="text-2xl font-bold text-blue-600 mb-4">$ 700 / per month</p>
+                    <p class="text-gray-600 mb-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla...
+                    </p>
+                    <div class="flex gap-4 text-gray-600 mb-4">
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-bed"></i>
+                            <span>2</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-bath"></i>
+                            <span>1</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-vector-square"></i>
+                            <span>220 ft²</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <img src="4.jpg" alt="Mark Frosty" class="rounded-full h-10 w-10">
+                            <div>
+                                <p class="text-sm text-gray-600">By Mark Frosty</p>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-12">
+        <!-- Header Section -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+            <div>
+                <p class="text-blue-600 font-medium mb-2">BROWSE HOT OFFERS</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Latest Properties</h2>
+            </div>
+            <div class="flex flex-wrap gap-4">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">All Categories</button>
+                <button class="text-gray-600 hover:text-gray-900 font-bold py-2 px-4 rounded">For Sale</button>
+                <button class="text-gray-600 hover:text-gray-900 font-bold py-2 px-4 rounded">For Rent</button>
+            </div>
+        </div>
+
+        <!-- Properties Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Property Card 1 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="relative">
+                    <img src="Designer-home-decor-Home-decorating-tips-and-interior-design-ideas-FB-1200x700-compressed.jpg" alt="Gorgeous House" class="w-full h-[300px] object-cover">
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Sale</span>
+                        <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Apartment</span>
+                    </div>
+                    <div class="absolute top-4 right-4 flex gap-2">
+                        <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-heart text-gray-600"></i>
+                        </button>
+                        <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-share-alt text-gray-600"></i>
+                        </button>
+                    </div>
+                    <div class="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>70 Bright St New York, USA</span>
+                    </div>
+                    <div class="absolute bottom-4 right-4 bg-white rounded-md px-2 py-1">
+                        <span>8 Photos</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Gorgeous House For Sale</h3>
+                    <p class="text-2xl font-bold text-blue-600 mb-4">$ 600,000</p>
+                    <p class="text-gray-600 mb-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla...
+                    </p>
+                    <div class="flex gap-4 text-gray-600 mb-4">
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-bed"></i>
+                            <span>3</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-bath"></i>
+                            <span>2</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-vector-square"></i>
+                            <span>450 ft²</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <img src="4.jpg" alt="Liza Rose" class="rounded-full h-10 w-10">
+                            <div>
+                                <p class="text-sm text-gray-600">By Liza Rose</p>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 2 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="relative">
+                    <img src="home-interior-design-ideas.jpg" alt="Luxury Family Home" class="w-full h-[300px] object-cover">
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Sale</span>
+                        <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Apartment</span>
+                    </div>
+                    <div class="absolute top-4 right-4 flex gap-2">
+                        <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-heart text-gray-600"></i>
+                        </button>
+                        <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-share-alt text-gray-600"></i>
+                        </button>
+                    </div>
+                    <div class="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>40 Journal Square, NJ, USA</span>
+                    </div>
+                    <div class="absolute bottom-4 right-4 bg-white rounded-md px-2 py-1">
+                        <span>47 Photos</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Luxury Family Home</h3>
+                    <p class="text-2xl font-bold text-blue-600 mb-4">$ 320,000</p>
+                    <p class="text-gray-600 mb-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla...
+                    </p>
+                    <div class="flex gap-4 text-gray-600 mb-4">
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-bed"></i>
+                            <span>4</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-bath"></i>
+                            <span>2</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-vector-square"></i>
+                            <span>460 ft²</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <img src="Employee-Journey-What-it-is-and-how-to-improve-it.jpg" alt="Anna Lips" class="rounded-full h-10 w-10">
+                            <div>
+                                <p class="text-sm text-gray-600">By Anna Lips</p>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 3 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="relative">
+                    <img src="home-interior-design-ideas (1).jpg" alt="Family House for Rent" class="w-full h-[300px] object-cover">
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="bg-blue-600 text-white px-4 py-1 rounded-md">Rent</span>
+                        <span class="bg-blue-600 text-white px-4 py-1 rounded-md">House</span>
+                    </div>
+                    <div class="absolute top-4 right-4 flex gap-2">
+                        <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-heart text-gray-600"></i>
+                        </button>
+                        <button class="bg-white p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-share-alt text-gray-600"></i>
+                        </button>
+                    </div>
+                    <div class="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>34-42 Montgomery St, NY, USA</span>
+                    </div>
+                    <div class="absolute bottom-4 right-4 bg-white rounded-md px-2 py-1">
+                        <span>4 Photos</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Family House for Rent</h3>
+                    <p class="text-2xl font-bold text-blue-600 mb-4">$ 700 / per month</p>
+                    <p class="text-gray-600 mb-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla...
+                    </p>
+                    <div class="flex gap-4 text-gray-600 mb-4">
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-bed"></i>
+                            <span>2</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-bath"></i>
+                            <span>1</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-vector-square"></i>
+                            <span>220 ft²</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <img src="4.jpg" alt="Mark Frosty" class="rounded-full h-10 w-10">
+                            <div>
+                                <p class="text-sm text-gray-600">By Mark Frosty</p>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="container mx-auto px-4 py-16">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <!-- Left Content -->
+            <div class="w-full lg:w-1/2 space-y-8">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Why Choose Our Properties</h2>
+                    <p class="text-blue-600">Check video presentation to find out more about us .</p>
+                </div>
+
+                <!-- Features -->
+                <div class="space-y-8">
+                    <!-- 24 Hours Support -->
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-600 p-4 rounded-lg">
+                            <i class="fas fa-headset text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">24 Hours Support</h3>
+                            <p class="text-gray-600">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- User Admin Panel -->
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-600 p-4 rounded-lg">
+                            <i class="fas fa-cogs text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">User Admin Panel</h3>
+                            <p class="text-gray-600">
+                                Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Curabitur convallis fringilla diam sed aliquam.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Friendly -->
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-600 p-4 rounded-lg">
+                            <i class="fas fa-mobile-alt text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Mobile Friendly</h3>
+                            <p class="text-gray-600">
+                                Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Image with Testimonial -->
+            <div class="w-full lg:w-1/2 relative">
+                <img 
+                    src="1_The-Wooden-Rhapsody-Modern-Bedroom-Interior-Design.jpg" 
+                    alt="Modern living room interior" 
+                    class="w-full h-auto rounded-lg shadow-lg"
+                >
+                <!-- Testimonial Box -->
+                <div class="absolute bottom-8 right-8 bg-blue-600 text-white p-6 rounded-lg shadow-lg max-w-sm">
+                    <p class="text-lg mb-4">
+                        Your website is fully responsive so visitors can view your content from their choice of device.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-bold">Mark Antony</p>
+                            <p class="text-sm opacity-90">Homeredar CEO</p>
+                        </div>
+                        <div class="text-4xl font-serif">"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+     <!-- Explore Best Cities Section -->
+  <section class="container mx-auto my-16 px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-0">
+
+      <!-- Text Section -->
+      <div class="bg-blue-600 text-white p-8 md:py-64 flex flex-col justify-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Explore Best Cities</h2>
+        <p class="text-lg leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+
+      <!-- City Card 1 -->
+      <div class="relative group overflow-hidden shadow-lg">
+        <img src="View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_(cropped).jpg" alt="New York" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-6 text-white">
+          <button class="bg-blue-600 px-4 py-1 mb-3 text-sm rounded">26 Properties</button>
+          <h3 class="text-2xl font-semibold">Explore New York</h3>
+          <p class="text-sm mt-2 leading-relaxed">Constant care and attention to the patients makes good record</p>
+        </div>
+      </div>
+
+      <!-- City Card 2 -->
+      <div class="relative group overflow-hidden  shadow-lg">
+        <img src="New_york_times_square-terabass.jpg" alt="London" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-6 text-white">
+          <button class="bg-blue-600 px-4 py-1 mb-3 text-sm rounded">32 Properties</button>
+          <h3 class="text-2xl font-semibold">Awesome London</h3>
+          <p class="text-sm mt-2 leading-relaxed">Constant care and attention to the patients makes good record</p>
+        </div>
+      </div>
+
+      <!-- City Card 3 -->
+      <div class="relative group overflow-hidden  shadow-lg">
+        <img src="new-york-city-evening-NYCTG0221-52492d6ccab44f328a1c89f41ac02aea.jpg" alt="Paris" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-6 text-white">
+          <button class="bg-blue-600 px-4 py-1 mb-3 text-sm rounded">18 Properties</button>
+          <h3 class="text-2xl font-semibold">Find Dream in Paris</h3>
+          <p class="text-sm mt-2 leading-relaxed">Constant care and attention to the patients makes good record</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Agents Section -->
+  <section class="container mx-auto py-16 px-6">
+    <div class="text-center mb-10">
+      <h3 class="text-sm font-semibold text-blue-600 uppercase">The Best Agents</h3>
+      <h2 class="text-4xl font-bold">Meet Our Agents</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <!-- Agent Card 1 -->
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="relative">
+          <img src="depositphotos_5140926-stock-photo-closeup-of-employee-in-the.jpg" alt="Agent" class="w-full h-56 object-cover">
+          <div class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-md text-sm">4 listings</div>
+          <div class="absolute top-4 right-4 flex flex-col space-y-2">
+            <a href="#" class="bg-blue-600 p-2 rounded-full text-white"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="bg-blue-600 p-2 rounded-full text-white"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="bg-blue-600 p-2 rounded-full text-white"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="bg-blue-600 p-2 rounded-full text-white"><i class="fab fa-vk"></i></a>
+          </div>
+          <div class="absolute bottom-4 left-4 flex items-center">
+            <div class="text-yellow-500 flex items-center mr-2">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <span class="text-white text-sm font-semibold">Excellent</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-semibold">Anna Lips</h3>
+          <p class="text-blue-600">CondorHome RealEstate agency</p>
+          <p class="text-gray-600 mt-2 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla...</p>
+          <div class="flex justify-between items-center mt-6">
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">View Profile</button>
+            <div class="flex space-x-4 text-blue-600">
+              <a href="#"><i class="fas fa-phone"></i></a>
+              <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent Card 2 -->
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="relative">
+          <img src="651a82942e9abeceaa8d3d50_Employee-Surveys-Why-They-Are-An-Essential-Tool-For-Your-HR-Team.jpg" alt="Agent" class="w-full h-56 object-cover">
+          <div class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-md text-sm">6 listings</div>
+          <div class="absolute top-4 right-4 flex flex-col space-y-2">
+            <a href="#" class="bg-blue-600 p-2 rounded-full text-white"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="bg-blue-600 p-2 rounded-full text-white"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="bg-blue-600 p-2 rounded-full text-white"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="bg-blue-600 p-2 rounded-full text-white"><i class="fab fa-vk"></i></a>
+          </div>
+          <div class="absolute bottom-4 left-4 flex items-center">
+            <div class="text-yellow-500 flex items-center mr-2">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+            </div>
+            <span class="text-white text-sm font-semibold">Average</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-semibold">Jane Kobart</h3>
+          <p class="text-blue-600">Mavers RealEstate agency</p>
+          <p class="text-gray-600 mt-2 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla...</p>
+          <div class="flex justify-between items-center mt-6">
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">View Profile</button>
+            <div class="flex space-x-4 text-blue-600">
+              <a href="#"><i class="fas fa-phone"></i></a>
+              <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent Card 3 -->
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="relative">
+          <img src="Employee-Journey-What-it-is-and-how-to-improve-it.jpg" alt="Agent" class="w-full h-56 object-cover">
+          <div class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-md text-sm">23 listings</div>
+          <div class="absolute top-4 right-4 flex flex-col space-y-2">
+            <a href="#" class="bg-blue-600 p-2 rounded-full text-white"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="bg-blue-600 p-2 rounded-full text-white"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="bg-blue-600 p-2 rounded-full text-white"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="bg-blue-600 p-2 rounded-full text-white"><i class="fab fa-vk"></i></a>
+          </div>
+          <div class="absolute bottom-4 left-4 flex items-center">
+            <div class="text-yellow-500 flex items-center mr-2">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <span class="text-white text-sm font-semibold">Excellent</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-semibold">Bill Trust</h3>
+          <p class="text-blue-600">Your Sweet Home agency</p>
+          <p class="text-gray-600 mt-2 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla...</p>
+          <div class="flex justify-between items-center mt-6">
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">View Profile</button>
+            <div class="flex space-x-4 text-blue-600">
+              <a href="#"><i class="fas fa-phone"></i></a>
+              <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+
+    <!-- Stats Section -->
+    <section class="relative bg-blue-600 text-white py-16">
+        <!-- Wavy Background SVG -->
+        <div class="absolute inset-0 overflow-hidden">
+          <svg class="absolute top-0 left-0 w-full h-full opacity-25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="white" fill-opacity="0.3" d="M0,64L48,80C96,96,192,128,288,154.7C384,181,480,203,576,192C672,181,768,139,864,128C960,117,1056,139,1152,154.7C1248,171,1344,181,1392,186.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+          </svg>
+        </div>
+    
+        <div class="relative container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <!-- Stat 1 -->
+          <div>
+            <h3 class="text-4xl font-bold">578</h3>
+            <p class="mt-2">Agents and Agencys</p>
+          </div>
+          <!-- Stat 2 -->
+          <div>
+            <h3 class="text-4xl font-bold">12168</h3>
+            <p class="mt-2">Happy Customers Every Year</p>
+          </div>
+          <!-- Stat 3 -->
+          <div>
+            <h3 class="text-4xl font-bold">2172</h3>
+            <p class="mt-2">Won Awards</p>
+          </div>
+          <!-- Stat 4 -->
+          <div>
+            <h3 class="text-4xl font-bold">732</h3>
+            <p class="mt-2">New Listing Every Week</p>
+          </div>
+        </div>
+      </section>
+
+
+
+    <!-- Testimonials Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto text-center mb-10">
+      <h3 class="text-sm font-semibold text-blue-600 uppercase">Testimonials</h3>
+      <h2 class="text-4xl font-bold">What Our Clients Say</h2>
+    </div>
+
+    <!-- Scrollable Container for Testimonials with Snap Pagination -->
+    <div class="scroll-container px-6 space-x-6">
+      
+      <!-- Testimonial Cards - Sized to Show 3 at Once on Desktop -->
+      <div class="scroll-item bg-white rounded-lg shadow-lg p-8 mx-3">
+        <div class="flex items-center space-x-4 mb-4">
+          <img src="Employee-Journey-What-it-is-and-how-to-improve-it.jpg" alt="Client Image" class="w-12 h-12 rounded-full">
+          <div>
+            <h4 class="text-lg font-semibold">Garry Colonsi</h4>
+            <div class="flex items-center text-yellow-500 text-sm">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-6">
+          "In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna."
+        </p>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Via Facebook</button>
+      </div>
+
+      <!-- Duplicate Card for Displaying 6 Cards -->
+      <div class="scroll-item bg-white rounded-lg shadow-lg p-8 mx-3">
+        <div class="flex items-center space-x-4 mb-4">
+          <img src="651a82942e9abeceaa8d3d50_Employee-Surveys-Why-They-Are-An-Essential-Tool-For-Your-HR-Team.jpg" alt="Client Image" class="w-12 h-12 rounded-full">
+          <div>
+            <h4 class="text-lg font-semibold">Antony Moore</h4>
+            <div class="flex items-center text-yellow-500 text-sm">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-6">
+          "Feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent."
+        </p>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Via Twitter</button>
+      </div>
+
+      <!-- Additional Cards for a Total of 6 Cards -->
+      <div class="scroll-item bg-white rounded-lg shadow-lg p-8 mx-3">
+        <div class="flex items-center space-x-4 mb-4">
+          <img src="4.jpg" alt="Client Image" class="w-12 h-12 rounded-full">
+          <div>
+            <h4 class="text-lg font-semibold">Jessie Wilcox</h4>
+            <div class="flex items-center text-yellow-500 text-sm">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-6">
+          "In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus."
+        </p>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Via Facebook</button>
+      </div>
+
+      <div class="scroll-item bg-white rounded-lg shadow-lg p-8 mx-3">
+        <div class="flex items-center space-x-4 mb-4">
+          <img src="651a82942e9abeceaa8d3d50_Employee-Surveys-Why-They-Are-An-Essential-Tool-For-Your-HR-Team.jpg" alt="Client Image" class="w-12 h-12 rounded-full">
+          <div>
+            <h4 class="text-lg font-semibold">Chris Riley</h4>
+            <div class="flex items-center text-yellow-500 text-sm">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-6">
+          "Feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim."
+        </p>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Via LinkedIn</button>
+      </div>
+
+      <div class="scroll-item bg-white rounded-lg shadow-lg p-8 mx-3">
+        <div class="flex items-center space-x-4 mb-4">
+          <img src="4.jpg" alt="Client Image" class="w-12 h-12 rounded-full">
+          <div>
+            <h4 class="text-lg font-semibold">Emily Stone</h4>
+            <div class="flex items-center text-yellow-500 text-sm">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-6">
+          "Nulla tristique mi a massa convallis cursus. Nulla eu mi magna."
+        </p>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Via Instagram</button>
+      </div>
+
+      <div class="scroll-item bg-white rounded-lg shadow-lg p-8 mx-3">
+        <div class="flex items-center space-x-4 mb-4">
+          <img src="Employee-Journey-What-it-is-and-how-to-improve-it.jpg" alt="Client Image" class="w-12 h-12 rounded-full">
+          <div>
+            <h4 class="text-lg font-semibold">Michael Green</h4>
+            <div class="flex items-center text-yellow-500 text-sm">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-6">
+          "In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus."
+        </p>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Via Twitter</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+  <!-- Footer Section -->
+  <footer class="bg-white py-12 border-t border-gray-200">
+    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+      
+      <!-- Company Info -->
+      <div>
+        <img src="logo.png" alt="Company Logo" class="w-32 mb-4">
+        <p class="text-gray-600 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar.</p>
+        <p class="text-gray-600">Monday - Friday: <span class="text-blue-600">8am - 6pm</span></p>
+        <p class="text-gray-600">Saturday - Sunday: <span class="text-blue-600">9am - 3pm</span></p>
+      </div>
+
+      <!-- Helpful Links -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Helpful links</h3>
+        <ul class="space-y-2 text-gray-600">
+          <li><a href="#" class="hover:text-blue-600">About Our Company</a></li>
+          <li><a href="#" class="hover:text-blue-600">Our last News</a></li>
+          <li><a href="#" class="hover:text-blue-600">Pricing Plans</a></li>
+          <li><a href="#" class="hover:text-blue-600">Contacts</a></li>
+          <li><a href="#" class="hover:text-blue-600">Help Center</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Contacts Info</h3>
+        <ul class="space-y-2 text-gray-600">
+          <li><span class="font-semibold">Mail:</span> yourmail@domain.com</li>
+          <li><span class="font-semibold">Adress:</span> USA 27TH Brooklyn NY</li>
+          <li><span class="font-semibold">Phone:</span> +7(111)123456789</li>
+        </ul>
+        <div class="flex space-x-2 mt-4">
+          <a href="#" class="bg-blue-600 p-2 rounded text-white"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="bg-blue-600 p-2 rounded text-white"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="bg-blue-600 p-2 rounded text-white"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="bg-blue-600 p-2 rounded text-white"><i class="fab fa-vk"></i></a>
+        </div>
+      </div>
+
+      <!-- Download API -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Download our API</h3>
+        <p class="text-gray-600 mb-4">Start working with Homeradar that can provide everything you need</p>
+        <button class="w-full bg-blue-600 text-white py-3 rounded-md mb-2 hover:bg-blue-700">App Store</button>
+        <button class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700">Play Market</button>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="bg-gray-50 py-4 mt-8">
+      <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+        <p>© Homeradar 2022. All rights reserved.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-blue-600">Terms of use</a>
+          <a href="#" class="hover:text-blue-600">Privacy Policy</a>
+          <a href="#" class="hover:text-blue-600">Blog</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

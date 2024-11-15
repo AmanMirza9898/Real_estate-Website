@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+
+
+
+    <!-- Navbar -->
+  <nav class="bg-white shadow-md py-3 fixed top-0 w-full">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      
+      <!-- Logo and Search -->
+      <div class="flex items-center space-x-4">
+        <a href="#" class="flex items-center space-x-1">
+          <img src="logo.png" alt="Logo" class="">
+          
+        </a>
+
+        <!-- Search Bar -->
+        <div class="hidden lg:flex items-center bg-gray-100 rounded-full px-4 py-2 ml-4">
+          <i class="fas fa-search text-gray-400"></i>
+          <input type="text" placeholder="Search..." class="bg-transparent focus:outline-none ml-2 w-40">
+        </div>
+      </div>
+
+      <!-- Menu Links and Action Buttons -->
+      <div class="hidden lg:flex items-center space-x-6">
+        <a href="http://127.0.0.1:5500/main/home.html" class="text-blue-600 font-semibold">Home</a>
+        
+        <!-- Dropdown Links -->
+        <div class="relative group">
+          <a href="http://127.0.0.1:5500/main/listing.html" class="hover:text-blue-600">Listings <i class="fas fa-chevron-down text-xs"></i></a>
+          <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 py-2 w-40">
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Buy</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Rent</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Sell</a>
+          </div>
+        </div>
+
+        <div class="relative group">
+          <a href="#" class="hover:text-blue-600">Agents <i class="fas fa-chevron-down text-xs"></i></a>
+          <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 py-2 w-40">
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Agent List</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Agent Profile</a>
+          </div>
+        </div>
+
+        <a href="#" class="hover:text-blue-600">News</a>
+
+        <div class="relative">
+          <button id="dropdownButton" class="hover:text-blue-600 flex items-center">
+              Pages <i class="fas fa-chevron-down text-xs ml-1"></i>
+          </button>
+          <div id="dropdownMenu" class="absolute hidden bg-white shadow-md rounded-md mt-2 py-2 w-40 z-10">
+              <a href="http://127.0.0.1:5500/main/About.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">About Us</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Contact</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">FAQ</a>
+              <a href="http://127.0.0.1:5500/main/index_2.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Blog</a>
+              <a href="http://127.0.0.1:5500/main/index.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">User Dashboard</a>
+          </div>
+      </div>
+      
+      <script>
+          const dropdownButton = document.getElementById('dropdownButton');
+          const dropdownMenu = document.getElementById('dropdownMenu');
+      
+          dropdownButton.addEventListener('click', () => {
+              // Toggle the visibility of the dropdown menu
+              dropdownMenu.classList.toggle('hidden');
+          });
+      
+          // Optional: Close the dropdown when clicking outside of it
+          document.addEventListener('click', (event) => {
+              if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                  dropdownMenu.classList.add('hidden');
+              }
+          });
+      </script>
+      
+
+      <i class="fa-solid fa-user"></i> <a href="http://127.0.0.1:5500/main/login.html">Sign IN</a>
+
+        <!-- Notification Bell with Badge -->
+        <a href="#" class="relative">
+          <i class="fas fa-bell text-gray-600"></i>
+          <span class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">5</span>
+        </a>
+
+        <!-- Language Selector -->
+        <a href="#" class="hover:text-blue-600">
+          <i class="fas fa-globe text-gray-600"></i> <i class="fas fa-chevron-down text-xs"></i>
+        </a>
+
+        <!-- Add Listing Button -->
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md"><a href="http://127.0.0.1:5500/main/listing.html">+ Add Listing</a></button>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <div class="lg:hidden flex items-center">
+        <button id="menu-toggle" class="focus:outline-none">
+          <i class="fas fa-bars text-gray-600 text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden px-4 pt-4 pb-6 hidden">
+      <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 mb-4">
+        <i class="fas fa-search text-gray-400"></i>
+        <input type="text" placeholder="Search..." class="bg-transparent focus:outline-none ml-2 w-full">
+      </div>
+      <a href="http://127.0.0.1:5500/main/home.html" class="block py-2 text-blue-600 font-semibold">Home</a>
+      <a href="http://127.0.0.1:5500/main/listing.html" class="block py-2 hover:text-blue-600">Listings</a>
+      <a href="#" class="block py-2 hover:text-blue-600">Agents</a>
+      <a href="#" class="block py-2 hover:text-blue-600">News</a>
+      <a href="http://127.0.0.1:5500/main/index_2.html"class="block py-2 hover:text-blue-600">Pages</a>
+      <i class="fa-solid fa-user"></i> <a href="http://127.0.0.1:5500/main/login.html">Sign IN</a>
+      <div class="flex items-center space-x-4 mt-4">
+        <a href="#"><i class="fas fa-bell text-gray-600"></i></a>
+        <a href="#"><i class="fas fa-globe text-gray-600"></i></a>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-full w-full"><a href="http://127.0.0.1:5500/main/listing.html">+ Add Listing</a></button>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    // Toggle mobile menu visibility
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+  </script>
+    
+    
+        <main class="sm:px-40 py-8 p-4">
+
+        <div class="mt-[100px] flex justify-between items-center border-b-2 pb-4  ">
+            <ul class="flex space-x-4 font-semibold ">
+                <li>Home</li>
+                <li>Blog</li>
+                <li class="text-blue-600">Blog Signal</li>
+            </ul>
+
+            <button class="border shadow-md sm:px-[25px] px-[10px] py-[5px] ">
+                <i class="fa-solid fa-share-nodes"></i> share
+            </button>
+        </div>
+
+
+   
+
+
+        <div class="parent mt-[40px] sm:flex sm:space-x-10  ">
+
+            <div class="left mt-[0px]">
+
+                <img class="w-[800px]" src="1.jpg" alt="">
+    
+    
+                <div class="mt-[30px]">
+                    <h1 class="text-[25px] font-bold text-gray-500">Best House to Your Family .</h1>
+                </div>
+        
+                <div>
+                    <img class="w-[500px]" src="Screenshot 2024-10-26 092953.png" alt="">
+                </div>
+
+                <div class="text-gray-500">
+                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat laudantium quo inventore perferendis autem voluptates. Aspernatur maiores impedit molestias cupiditate vel reiciendis officia dicta, dolorem voluptatem libero, iure laborum nobis saepe exercitationem, quis neque error explicabo. Nisi, ipsam! Repellendus delectus iste dolor quos voluptatem dolore hic voluptates impedit ad eligendi? Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic voluptatem amet officiis saepe rerum asperiores, architecto dolorum expedita voluptate nemo illum ea, doloremque dolorem sed placeat. Cum suscipit repellat commodi nobis repellendus iure dicta excepturi voluptate, voluptates accusamus, minus sunt corporis. Et, tenetur repellat soluta omnis repellendus officiis assumenda at!</h1>
+                </div>
+
+                <div class="mt-[20px] text-[15px]">
+                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat ipsam, voluptatibus est facere provident numquam ut itaque eius dignissimos iusto aliquid quam quod iure nulla consequuntur ab eaque? Amet, quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, deleniti.</h1>
+                </div>
+
+                <div class="mt-[20px] text-[15px] text-gray-500 border-b-2 mb-2">
+                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat ipsam, voluptatibus est facere provident numquam ut itaque eius dignissimos iusto aliquid quam quod iure nulla consequuntur ab eaque? Amet, quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, deleniti. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente nisi eaque id possimus veritatis voluptas non corporis eum porro dignissimos?</h1>
+                </div>
+
+
+                <div>
+                    <div class=" flex-col justify-center sm:justify-start text-center sm:flex sm:flex-row  sm:space-x-2 mt-[15px]  ">
+                        <div class="border  py-2 px-4  bg-blue-50 text-gray-800 hover:bg-blue-500 hover:text-white">Hotel</div>
+                        <div class="border py-2 px-4 bg-blue-50 text-gray-800 hover:bg-blue-500 hover:text-white">Hostel</div>
+                        <div class="border py-2 px-4 bg-blue-50 text-gray-800 hover:bg-blue-500 hover:text-white">Room</div>
+                        <div class="border py-2 px-4 bg-blue-50 text-gray-800 hover:bg-blue-500 hover:text-white">Spa</div>
+                        <div class="border py-2 px-4 bg-blue-50 text-gray-800 hover:bg-blue-500 hover:text-white">Restourent</div>
+                        <div class="border py-2 px-4 bg-blue-50 text-gray-800 hover:bg-blue-500 hover:text-white">Parking</div>
+                    </div>
+                </div>
+
+
+                <div class="flex justify-between items-center px-4 py-6 rounded-md font-bold text-[12px] bg-blue-600 text-white mt-[20px]">
+                    <div>
+                        <h1 class="cursor-pointer"> <i class="fa-solid fa-arrow-left"></i> pre - Post Title </h1>
+                    </div>
+                    <div>
+                        <h1 class="cursor-pointer">Next -  Post Title <i class="fa-solid fa-arrow-right"></i> </h1>
+                    </div>
+                </div>
+
+
+                <div class="">
+                    <div class="text-[20px] font-bold text-gray-600 mx-4 my-8">
+                        <h1>Comments 2</h1>
+                    </div>
+
+                    <div class=" flex justify-center ">
+                        <div>
+                            <img class="rounded-[50%] w-24" src="1 (1).jpg" alt="">
+                        </div>
+                        <div>
+                            <img src="Screenshot 2024-10-26 121543.png" alt="">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="">
+                    
+                    <div class=" flex justify-center ">
+                        <div>
+                            <img class="rounded-[50%] w-24" src="4.jpg" alt="">
+                        </div>
+                        <div>
+                            <img src="Screenshot 2024-10-26 121557.png" alt="">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="text-[20px] font-bold text-gray-600 mx-4 my-8">
+                    <h1>Add Your Comment</h1>
+                </div>
+
+                <div class="sm:flex sm:justify-center sm:space-x-2  justify-center items-center">
+
+                    <div class="">
+                        <label for="">Your name*</label><br>
+                        <div class="flex">
+                            <i class="border text-blue-600 bg-blue-50  py-3 px-4 fa-solid fa-user"></i> <input type="text" class="border py-2 px-4 w-[300px] outline-none bg-blue-50 text-black">
+                        </div>
+                        
+                    </div>
+    
+    
+                    <div>
+                        <label for="">Your mail*</label><br>
+                        <div class="flex">
+                            <i class=" border  text-blue-600 bg-blue-50 py-3 px-4 fa-solid fa-message"></i> <input type="text" class="border py-2 px-4 w-[300px] outline-none bg-blue-50 text-black">
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="flex justify-center  mt-[20px]">
+                    <button class=" border py-2 px-36 rounded-[5px] bg-blue-500 text-white ">Submit</button>
+                </div>
+
+               
+                
+    
+            </div>
+    
+    
+            <div class="right">
+                <div class=" py-[5px] px-[10px] w-80">
+                    <input type="text" placeholder="Search...." class=" w-60 outline-none border py-1 px-2"> <span class="border py-1 px-2"><i class="fa-solid fa-magnifying-glass"></i></span>
+                </div>
+
+                <div class="mt-[20px] text-[18px] font-bold text-gray-500">
+                    <h1>Popular Posts</h1>
+                </div>
+
+                <div class="mt-[10px]">
+                    <img src="Screenshot 2024-10-26 095635.png" alt="">
+                </div>
+
+                <div class="mt-[20px] text-[18px] font-bold text-gray-500">
+                    <h1>Categories</h1>
+                </div>
+
+                <div class=" space-y-2 mt-[10px] border p-2 rounded-md shadow-md">
+                 <div class="flex justify-between">
+                    <div class="font-bold text-gray-500 text-[15px]">
+                        <h1>Standard</h1>
+                    </div>
+                    <div class="bg-blue-600 px-2 rounded-[50%] text-white">
+                        <h1>3</h1>
+                    </div>
+                 </div>
+
+
+                 <div class="flex justify-between">
+                    <div class="font-bold text-gray-500 text-[15px]">
+                        <h1>Video</h1>
+                    </div>
+                    <div class="bg-blue-600 px-2 rounded-[50%] text-white">
+                        <h1>6</h1>
+                    </div>
+                 </div>
+
+
+                 <div class="flex justify-between">
+                    <div class="font-bold text-gray-500 text-[15px]">
+                        <h1>Gallery</h1>
+                    </div>
+                    <div class="bg-blue-600 px-2 rounded-[50%] text-white">
+                        <h1>2</h1>
+                    </div>
+                 </div>
+
+
+                 <div class="flex justify-between">
+                    <div class="font-bold text-gray-500 text-[15px]">
+                        <h1>Quotes</h1>
+                    </div>
+                    <div class="bg-blue-600 px-2 rounded-[50%] text-white">
+                        <h1>4</h1>
+                    </div>
+                 </div>
+
+                </div>
+
+
+                <div class="flex justify-center items-center mt-[15px]">
+                    <img src="1.jpg" class="w-[450px]" alt="">
+                </div>
+
+                <div class="mt-[20px] text-[18px] font-bold text-gray-500">
+                    <h1>Tages</h1>
+                </div>
+
+                
+                    <div  class="space-y-2 mt-[20px] border p-4 shadow-md">
+                        <div class="flex space-x-2 ">
+                            <div class="border py-[5px] px-[10px] bg-blue-50 hover:bg-blue-600  hover:text-white">Hotel</div>
+                            <div class="border py-[5px] px-[10px] bg-blue-50 hover:bg-blue-600  hover:text-white">Hostel</div>
+                            <div class="border py-[5px] px-[10px] bg-blue-50 hover:bg-blue-600  hover:text-white">Roome</div>
+                            <div class="border py-[5px] px-[10px] bg-blue-50 hover:bg-blue-600  hover:text-white">Spa</div>
+                        </div>
+    
+                        <div class="flex space-x-2">
+                            <div class="border py-[5px] px-[10px] bg-blue-50 hover:bg-blue-600  hover:text-white">Restourent</div>
+                            <div class="border py-[5px] px-[10px] bg-blue-50 hover:bg-blue-600  hover:text-white">Parking</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-[20px] text-[18px] font-bold text-gray-700">
+                        <h1>Archive</h1>
+                    </div>
+
+                    <div class="font-bold text-[15px] text-gray-500 border p-4 shadow-md space-y-2 mt-[10px rounded-md]">
+                        <div class="flex space-x-2">
+                            <div>
+                                <i class="text-blue-400   fa-solid fa-arrow-right"></i>
+                            </div>
+                            <h>March 2020</h>
+                        </div>
+
+                        <div class="flex space-x-2">
+
+                            <div>
+                                <i class="text-blue-400 fa-solid fa-arrow-right"></i>
+                            </div>
+                            <h>May 2019</h>
+                        </div>
+
+                        <div class="flex space-x-2">
+                            <div>
+                                <i class="text-blue-400 fa-solid fa-arrow-right"></i>
+                            </div>
+                            <h>January 2016</h>
+                        </div>
+
+                        <div class="flex space-x-2">
+                            <div>
+                                <i class="text-blue-400 fa-solid fa-arrow-right"></i>
+                            </div>
+                            <h>December 2018</h>
+                        </div>
+                        
+                    </div>
+                
+                
+                
+            </div>
+
+        </div>
+
+        <div class="sm:flex sm:p-16  justify-between mt-[30px] text-white rounded-md bg-blue-500">
+            <div class="sm:p-0  p-8">
+                <div class="font-bold">
+                    <h1>NEWSLETTER</h1>
+                </div>
+                <div class="font-bold text-[20px]">
+                    <h1>Sign up for newsletter and get latest news and update</h1>
+                </div>
+            </div>
+
+            <div class="flex sm:p-0 p-2">
+                <input type="text" placeholder="Enter Your Email" class="border outline-none p-2 text-black">
+                <button class="border p-2">Sbuscribe</button>
+            </div>
+
+        </div>
+        
+    </main>
+
+
+        <footer class="mt-[40px] sm:flex ">
+
+
+          <div class="sm:flex   sm:justify-center items-center space-y-4 p-4  w-full sm:space-x-14">
+            <div class="sm:w-[500px] ">
+              <div>
+                <img src="logo.png" alt="">
+              </div>
+              <div class="mt-[10px]">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. A, architecto? Delectus perspiciatis pariatur doloremque architecto excepturi fuga unde eveniet quasi?
+              </div>
+            </div>
+
+            <div>
+              <h1 class="text-[20px] font-bold">Helpful Links</h1>
+              <ul class="mt-[10px]">
+                <li> <i class="text-blue-500  fa-solid fa-arrow-right"></i> About our compnay</li>
+                <li> <i class="text-blue-500  fa-solid fa-arrow-right"></i> our last news</li>
+                <li> <i class="text-blue-500  fa-solid fa-arrow-right"></i> Pricing Plans</li>
+                <li> <i class="text-blue-500  fa-solid fa-arrow-right"></i> Contacts</li>
+                <li> <i class="text-blue-500  fa-solid fa-arrow-right"></i> help center</li>
+              </ul>
+            </div>
+
+            <div>
+              <h1 class="text-[20px] font-bold">Contacts Info</h1>
+              <h1> <i class="text-blue-500 fa-solid fa-envelope"></i> Mail: yourmail@domain.com</h1>
+              <h1> <i class="text-blue-500 fa-solid fa-location-dot"></i> Adress: USA 27TH Brooklyn NY</h1>
+              <h1><i class="text-blue-500 fa-solid fa-phone"></i> phone: +7(111)123456789</h1>
+            </div>
+
+            <div class="sm:w-[300px] space-y-3">
+              <h1 class="text-[20px] font-bold">Download our API</h1>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores magni maxime iusto possimus, asperiores nihil.</p>
+              <button class="border py-2 px-[90px] rounded-md bg-blue-500 text-white"> <i class="fa-brands fa-apple"></i> App Store</button><br>
+              <button class="border py-2 px-[85px] rounded-md bg-blue-500 text-white"><i class="fa-solid fa-play"></i> Play Market</button>
+            </div>
+
+          </div>
+
+        </footer>
+
+        <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+        
+        
+   
+
+   
+
+
+</body>
+</html>

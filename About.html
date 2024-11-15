@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+
+    <!-- Navbar -->
+  <nav class="bg-white shadow-md py-3">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      
+      <!-- Logo and Search -->
+      <div class="flex items-center space-x-4">
+        <a href="#" class="flex items-center space-x-1">
+          <img src="logo.png" alt="Logo" class="">
+          
+        </a>
+
+        <!-- Search Bar -->
+        <div class="hidden lg:flex items-center bg-gray-100 rounded-full px-4 py-2 ml-4">
+          <i class="fas fa-search text-gray-400"></i>
+          <input type="text" placeholder="Search..." class="bg-transparent focus:outline-none ml-2 w-40">
+        </div>
+      </div>
+
+      <!-- Menu Links and Action Buttons -->
+      <div class="hidden lg:flex items-center space-x-6">
+        <a href="http://127.0.0.1:5500/main/home.html" class="text-blue-600 font-semibold">Home</a>
+        
+        <!-- Dropdown Links -->
+        <div class="relative group">
+          <a href="http://127.0.0.1:5500/main/listing.html" class="hover:text-blue-600">Listings <i class="fas fa-chevron-down text-xs"></i></a>
+          <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 py-2 w-40">
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Buy</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Rent</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Sell</a>
+          </div>
+        </div>
+
+        <div class="relative group">
+          <a href="#" class="hover:text-blue-600">Agents <i class="fas fa-chevron-down text-xs"></i></a>
+          <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 py-2 w-40">
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Agent List</a>
+            <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Agent Profile</a>
+          </div>
+        </div>
+
+        <a href="#" class="hover:text-blue-600">News</a>
+
+        <div class="relative">
+          <button id="dropdownButton" class="hover:text-blue-600 flex items-center">
+              Pages <i class="fas fa-chevron-down text-xs ml-1"></i>
+          </button>
+          <div id="dropdownMenu" class="absolute hidden bg-white shadow-md rounded-md mt-2 py-2 w-40 z-10">
+              <a href="http://127.0.0.1:5500/main/About.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">About Us</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Contact</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">FAQ</a>
+              <a href="http://127.0.0.1:5500/main/index_2.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Blog</a>
+              <a href="http://127.0.0.1:5500/main/index.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">User Dashboard</a>
+          </div>
+      </div>
+      
+      <script>
+          const dropdownButton = document.getElementById('dropdownButton');
+          const dropdownMenu = document.getElementById('dropdownMenu');
+      
+          dropdownButton.addEventListener('click', () => {
+              // Toggle the visibility of the dropdown menu
+              dropdownMenu.classList.toggle('hidden');
+          });
+      
+          // Optional: Close the dropdown when clicking outside of it
+          document.addEventListener('click', (event) => {
+              if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                  dropdownMenu.classList.add('hidden');
+              }
+          });
+      </script>
+      
+
+        <a href="http://127.0.0.1:5500/main/login.html" class="flex items-center space-x-1">
+          <i class="fas fa-user text-gray-600"></i>
+          <span class="hover:text-blue-600">Sign In</span>
+        </a>
+
+        <!-- Notification Bell with Badge -->
+        <a href="#" class="relative">
+          <i class="fas fa-bell text-gray-600"></i>
+          <span class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">5</span>
+        </a>
+
+        <!-- Language Selector -->
+        <a href="#" class="hover:text-blue-600">
+          <i class="fas fa-globe text-gray-600"></i> <i class="fas fa-chevron-down text-xs"></i>
+        </a>
+
+        <!-- Add Listing Button -->
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md"><a href="http://127.0.0.1:5500/main/listing.html">+ Add Listing</a></button>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <div class="lg:hidden flex items-center">
+        <button id="menu-toggle" class="focus:outline-none">
+          <i class="fas fa-bars text-gray-600 text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden px-4 pt-4 pb-6 hidden">
+      <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 mb-4">
+        <i class="fas fa-search text-gray-400"></i>
+        <input type="text" placeholder="Search..." class="bg-transparent focus:outline-none ml-2 w-full">
+      </div>
+      <a href="http://127.0.0.1:5500/main/home.html" class="block py-2 text-blue-600 font-semibold">Home</a>
+      <a href="http://127.0.0.1:5500/main/listing.html" class="block py-2 hover:text-blue-600">Listings</a>
+      <a href="#" class="block py-2 hover:text-blue-600">Agents</a>
+      <a href="#" class="block py-2 hover:text-blue-600">News</a>
+      <a href="http://127.0.0.1:5500/main/index_2.html" class="block py-2 hover:text-blue-600">Pages</a>
+      <a href="#" class="block py-2 hover:text-blue-600  items-center space-x-1">
+        <i class="fas fa-user text-gray-600"></i><span><a href="http://127.0.0.1:5500/main/login.html">Sign In</a></span>
+      </a>
+      <div class="flex items-center space-x-4 mt-4">
+        <a href="#"><i class="fas fa-bell text-gray-600"></i></a>
+        <a href="#"><i class="fas fa-globe text-gray-600"></i></a>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-full w-full"><a href="http://127.0.0.1:5500/main/listing.html">+ Add Listing</a></button>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    // Toggle mobile menu visibility
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+  </script>
+
+    <div>
+        <img src="Screenshot 2024-10-26 162013.png" alt="" class="mt-[100px]">
+    </div>
+
+    <div class="mt-[00px] flex justify-between items-center border-b-2  sm:px-40 py-8 p-4 ">
+        <ul class="flex space-x-4 font-semibold ">
+            <li>Home</li>
+            <li>Page</li>
+            <li class="text-blue-600">Contacts</li>
+        </ul>
+
+        <button class="border shadow-md sm:px-[25px] px-[10px] py-[5px] ">
+            <i class="fa-solid fa-share-nodes"></i> share
+        </button>
+    </div>
+
+
+    <div class="sm:flex sm:flex-row flex-col justify-center items-center p-4 sm:space-x-4">
+        <div class="border p-12 flex space-x-6 shadow-md">
+            <div>
+                <i class="text-[30px] text-blue-500 fa-solid fa-envelope"></i>
+            </div>
+            <div>
+                <h1>Our Mails</h1>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae, tempora.</p>
+                <h1 class="text-blue-500 font-bold">YOURMAIL@DOMAIN.COM</h1>
+            </div>
+        </div>
+
+        <div class="border p-12 flex space-x-6 shadow-md">
+            <div>
+                <i class="text-[30px] text-blue-500  fa-solid fa-phone"></i>
+            </div>
+            <div>
+                <h1>Our Phones</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, laudantium.</p>
+                <h1 class="text-blue-500 font-bold">+7(111)123456789</h1>
+            </div>
+        </div>
+
+        <div class="border p-12 flex space-x-6 shadow-md">
+            <div>
+                <i class="text-[30px] text-blue-500  fa-solid fa-map"></i>
+            </div>
+            <div>
+                <h1>Our Adress</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, qui.</p>
+                <h1 class="text-blue-500 font-bold">USA 27TH Brooklyn NY</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sm:flex justify-between items-center py-8 px-14 ">
+
+        <div class="flex space-x-8 py-2 items-center">
+            <div>
+                <button class=" bg-blue-500 text-white sm:py-4 sm:px-8 hover:bg-gradient-to-r from-cyan-500 to-slate-300 rounded-md">Write Message</button>
+            </div>
+            <div>
+                <h1>Or visit our  <span class="text-blue-500">Help Page</span></h1>
+            </div>
+        </div>
+
+        <div class="flex space-x-8 items-center py-4">
+            <div>
+                <h1 class="font-bold">Find Us On</h1>
+            </div>
+            <div>
+                <i class="border border-gray-500 text-blue-500 p-2 fa-brands fa-facebook"></i>
+                <i class=" border border-gray-500 text-blue-500 p-2 fa-brands fa-twitter"></i>
+                <i class="border border-gray-500 text-blue-500 p-2 fa-brands fa-instagram"></i>
+                <i class="border border-gray-500 text-blue-500 p-2 fa-brands fa-whatsapp"></i>
+            </div>
+        </div>
+    
+
+    </div>
+
+
+    <div class="sm:px-14 p-4">
+        <h1 class="text-[20px] font-bold text-gray-500">Office Location</h1>
+        <p class="text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, amet.</p>
+    </div>
+
+    <div>
+        <img src="Screenshot 2024-10-26 180031.png" alt="" class="sm:px-14 p-4 mt-[20px]">
+    </div>
+
+    <div class="sm:flex sm:p-16 p-4 items-center  sm:justify-between mt-[30px] text-white rounded-md bg-blue-500 sm:mx-28">
+        <div class=" sm:p-0  p-8">
+            <div class="font-bold">
+                <h1>NEWSLETTER</h1>
+            </div>
+            <div class="font-bold text-[20px]">
+                <h1>Sign up for newsletter and get latest news and update</h1>
+            </div>
+        </div>
+
+        <div class="flex sm:p-0  px-8 ">
+            <input type="text" placeholder="Enter Your Email" class="border outline-none p-2 text-black">
+            <button class="border p-2">Sbuscribe</button>
+        </div>
+
+    </div>
+
+
+    <footer class="mt-[40px] sm:flex ">
+
+
+        <div class="sm:flex   sm:justify-center items-center space-y-4 p-4  w-full sm:space-x-14">
+          <div class="sm:w-[500px] ">
+            <div>
+              <img src="logo.png" alt="">
+            </div>
+            <div class="mt-[10px]">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. A, architecto? Delectus perspiciatis pariatur doloremque architecto excepturi fuga unde eveniet quasi?
+            </div>
+          </div>
+
+          <div>
+            <h1 class="text-[20px] font-bold">Helpful Links</h1>
+            <ul class="mt-[10px]">
+              <li> <i class="text-blue-500  fa-solid fa-arrow-right"></i> About our compnay</li>
+              <li> <i class="text-blue-500  fa-solid fa-arrow-right"></i> our last news</li>
+              <li> <i class="text-blue-500  fa-solid fa-arrow-right"></i> Pricing Plans</li>
+              <li> <i class="text-blue-500  fa-solid fa-arrow-right"></i> Contacts</li>
+              <li> <i class="text-blue-500  fa-solid fa-arrow-right"></i> help center</li>
+            </ul>
+          </div>
+
+          <div>
+            <h1 class="text-[20px] font-bold">Contacts Info</h1>
+            <h1> <i class="text-blue-500 fa-solid fa-envelope"></i> Mail: yourmail@domain.com</h1>
+            <h1> <i class="text-blue-500 fa-solid fa-location-dot"></i> Adress: USA 27TH Brooklyn NY</h1>
+            <h1><i class="text-blue-500 fa-solid fa-phone"></i> phone: +7(111)123456789</h1>
+          </div>
+
+          <div class="sm:w-[300px] space-y-3">
+            <h1 class="text-[20px] font-bold">Download our API</h1>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores magni maxime iusto possimus, asperiores nihil.</p>
+            <button class="border py-2 px-[90px] rounded-md bg-blue-500 text-white"> <i class="fa-brands fa-apple"></i> App Store</button><br>
+            <button class="border py-2 px-[85px] rounded-md bg-blue-500 text-white"><i class="fa-solid fa-play"></i> Play Market</button>
+          </div>
+
+        </div>
+
+      </footer>
+    
+</body>
+</html>

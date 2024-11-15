@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinite Scroll Animation</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes scroll {
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .animate-scroll {
+      animation: scroll var(--animation-duration, 40s) linear infinite;
+    }
+
+    /* For reduced motion users */
+    @media (prefers-reduced-motion: reduce) {
+      .animate-scroll {
+        animation: none;
+      }
+    }
+
+    /* Add fading shadow effect on the sides */
+    .fade-shadow {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fade-shadow::before,
+    .fade-shadow::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2rem;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .fade-shadow::before {
+      left: 0;
+      background: linear-gradient(to right, rgba(237, 231, 231, 0.7), transparent);
+    }
+
+    .fade-shadow::after {
+      right: 0;
+      background: linear-gradient(to left, rgba(243, 240, 240, 0.7), transparent);
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-white text-black font-sans text-lg">
+
+         <div class="max-w-7xl mx-auto text-center">
+            <!-- Title -->
+            <h2 class="text-base text-orange-600 font-semibold tracking-wide uppercase">What do these successful businesses have in common?</h2>
+            <h3 class="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">A Marketing Partner - ADS SQUAD</h3>
+        </div>
+
+
+  <!-- Heading -->
+  <h1 class="text-2xl font-bold mb-8 text-center">Infinite Scroll Animation with Shadow Blur</h1>
+
+  <!-- Tag List Scroller with Shadow Blur -->
+  <div class="scroller fade-shadow overflow-hidden max-w-xl mb-8" data-speed="fast">
+    <div class="flex gap-4 p-4 animate-scroll" style="--animation-duration: 60s;">
+        <img src="https://onrbuildwell.com/assets/images/gk.png" alt="ONR Buildwell" class="h-12 md:h-16 lg:h-20">
+
+        <img src="https://letsmovin.com/wp-content/uploads/2024/08/lets-movin-black-bg-logo.png" alt="Let's Movin" class="h-12 md:h-16 lg:h-20">
+
+        <img src="https://shivaayagency.in/assets/images/sk.png" alt="Shivaay Agency" class="h-12 md:h-16 lg:h-20">
+
+        <img src="https://dsrhomes.in/assets/images/dsrlg.png" alt="DSR Homes" class="h-12 md:h-16 lg:h-20">
+
+        <img src="https://designtone.in/wp-content/uploads/2023/10/cropped-13-removebg-preview.png" alt="Designtone" class="h-12 md:h-16 lg:h-20">
+
+        <!-- <img src="https://i.pravatar.cc/150?img=6" alt="Avatar 6" class="rounded" /> -->
+      </div>
+  </div>
+
+  <!-- Image Scroller with Shadow Blur -->
+  <div class="scroller fade-shadow overflow-hidden max-w-xl" data-direction="right" data-speed="slow">
+    <div class="flex gap-4 p-4 animate-scroll" style="--animation-duration: 60s; animation-direction: reverse;">
+        <img src="https://gkrealestate.in/assets/images/gkk.png" alt="Real Estate" class="h-12 md:h-16 lg:h-20">
+
+        <img src="https://finebrixinfratech.com/wp-content/uploads/2022/10/finebrik-logo-golden-2-1-2.png" alt="Finebrix Infratech" class="h-12 md:h-16 lg:h-20">
+
+        <img src="https://trryhomes.in/assets/images/sk.jpeg" alt="TRRY Homes" class="h-12 md:h-16 lg:h-20">
+
+        <img src="https://www.4sdevelopers.com/img/logo.png" alt="4S" class="h-12 md:h-16 lg:h-20">
+
+        <img src="https://thefourcorner.com/assets/images/cornerr.png" alt="Four Corners Land Base" class="h-12 md:h-16 lg:h-20">
+
+      <!-- <img src="https://i.pravatar.cc/150?img=6" alt="Avatar 6" class="rounded" /> -->
+    </div>
+  </div>
+
+  
+
+  <script>
+    const scrollers = document.querySelectorAll(".scroller");
+
+    // If a user hasn't opted in for reduced motion, then we add the animation
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      addAnimation();
+    }
+
+    function addAnimation() {
+      scrollers.forEach((scroller) => {
+        scroller.setAttribute("data-animated", true);
+
+        // Select the inner element containing the list or images
+        const scrollerInner = scroller.querySelector("ul, div");
+        const scrollerContent = Array.from(scrollerInner.children);
+
+        // Clone each child element to create an infinite scroll effect
+        scrollerContent.forEach((item) => {
+          const duplicatedItem = item.cloneNode(true);
+          duplicatedItem.setAttribute("aria-hidden", true);
+          scrollerInner.appendChild(duplicatedItem);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    
+    <body>
+        <div class="flex justify-center sm:p-4 p-2">
+            <div class="sm:flex sm:justify-center sm:items-center border rounded-md w-full max-w-[900px] shadow-lg flex-col sm:flex-row">
+                <!-- Left Section (Logo) -->
+                <div class="left flex justify-center w-full sm:w-1/2">
+                    <div class="bg-blue-600 px-20 py-10 sm:px-10 sm:py-60 md:px-16 md:py-80 w-full flex justify-center items-center">
+                        <img src="white-logo.png" alt="Logo" class="w-24 h-auto sm:w-auto">
+                    </div>
+                </div>
+                
+                <!-- Right Section (Register Form) -->
+                <div class="right p-8 sm:p-16 flex justify-center w-full sm:w-1/2">
+                    <div class="space-y-4 w-full">
+                        <!-- Register and Login Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center sm:justify-between">
+                            <button class="py-3 px-8 sm:px-12 rounded-md border shadow-md w-full sm:w-auto flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-right-to-bracket"></i> <span><a href="http://127.0.0.1:5500/main/login.html">Login</a></span>
+                            </button>
+                            <button class="py-3 px-8 sm:px-12 rounded-md bg-blue-500 text-white shadow-md w-full sm:w-auto flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-user"></i> <span><a href="">Register</a></span>
+                            </button>
+                        </div>
+                        
+                        <!-- Username Input -->
+                        <div>
+                            <label for="">Username *</label><br>
+                            <div class="flex items-center border rounded-md">
+                                <i class="px-4 py-[14.5px] fa-regular fa-user"></i> 
+                                <input class="pr-24 pl-2 outline-none w-full py-[10px] border-none" type="text" placeholder="Choose a Username">
+                            </div>
+                        </div>
+                        
+                        <!-- Email Input -->
+                        <div>
+                            <label for="">Email Address *</label><br>
+                            <div class="flex items-center border rounded-md">
+                                <i class="px-4 py-[14.5px] fa-regular fa-envelope"></i> 
+                                <input class="pr-24 pl-2 outline-none w-full py-[10px] border-none" type="email" placeholder="Your Email Address">
+                            </div>
+                        </div>
+    
+                        <!-- Password Input -->
+                        <div>
+                            <label for="">Password *</label><br>
+                            <div class="flex items-center border rounded-md">
+                                <i class="px-4 py-[14.5px] fa-solid fa-key"></i> 
+                                <input class="pr-24 pl-2 outline-none w-full py-[10px] border-none" type="password" placeholder="Choose a Password">
+                            </div>
+                        </div>
+        
+                        <!-- Terms and Conditions -->
+                        <div class="space-x-2">
+                            <input type="checkbox"><label for="">I agree to the <a href="#" class="text-blue-500 hover:underline">Terms and Conditions</a></label>
+                        </div>
+    
+                         <!-- Register Button -->
+                    <button class="w-[40%] py-2 hover:bg-gradient-to-r from-sky-500 to-blue-200 rounded-md shadow-md text-white bg-blue-500">Register</button>
+                     
+                    <p class="text-[12px]">For faster login or register, use your social account.</p>
+    
+                    <!-- Facebook Button -->
+                    <button class="w-full py-3 hover:bg-gradient-to-r from-sky-500 to-blue-200 text-white rounded-sm shadow-md bg-blue-500">Facebook</button>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </body>
+    
+    
+
+</body>
+</html>
